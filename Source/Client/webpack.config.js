@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './source/app.ts',
-  mode: 'development',
+  mode: 'production',
   output: {
     filename: 'vendor.js',
     path: path.resolve(__dirname, '../Server/source/webroot/scripts'),
