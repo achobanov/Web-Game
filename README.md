@@ -21,3 +21,14 @@ Start the server
 cd ../Server
 npm start
 ```
+## Client tools
+
+Run in watch mode
+```
+npm run watch
+```
+
+Run the Typescript compiler without emitting .js
+```
+npm run types
+```
