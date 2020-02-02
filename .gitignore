@@ -109,3 +109,4 @@ dist
 
 # Client bundle
 Source/Server/webroot/*.js
+Source/Server/webroot/*.js.map
