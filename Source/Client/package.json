@@ -1,5 +1,6 @@
 {
   "name": "web-game_client",
+  "private": true,
   "version": "0.0.1",
   "description": "Web-Game's client package with basic bundling",
   "main": "app.js",
