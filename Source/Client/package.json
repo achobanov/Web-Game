@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/achobanov/Web-Game/issues"
   },
-  "homepage": "https://github.com/achobanov/Web-Game#readme"
+  "homepage": "https://github.com/achobanov/Web-Game#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10"
+  }
 }
