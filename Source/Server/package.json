@@ -1,5 +1,5 @@
 {
-  "name": "web-game",
+  "name": "web-game_server",
   "version": "0.0.1",
   "description": "Basic server for a web game PoC",
   "private": true,
