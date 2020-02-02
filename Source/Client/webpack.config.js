@@ -20,7 +20,13 @@ module.exports = {
             plugins: ['@babel/plugin-proposal-class-properties']
           }
         }
-      } 
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ]
   },
 }; 
