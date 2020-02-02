@@ -1,0 +1,30 @@
+{
+  "name": "web-game_server",
+  "version": "0.0.1",
+  "description": "Basic server for a web game PoC",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achobanov/Web-Game.git"
+  },
+  "keywords": [
+    "server",
+    "web-game"
+  ],
+  "author": "Alex Shepard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/achobanov/Web-Game/issues"
+  },
+  "homepage": "https://github.com/achobanov/Web-Game#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "express": "4.17.1",
+    "node-static": "0.7.11"
+  }
+}

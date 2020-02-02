@@ -1,0 +1,42 @@
+{
+  "name": "web-game_client",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Web-Game's client package with basic bundling",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && webpack",
+    "types": "tsc",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achobanov/Web-Game.git"
+  },
+  "keywords": [
+    "game",
+    "web",
+    "client"
+  ],
+  "author": "Alex Shepard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/achobanov/Web-Game/issues"
+  },
+  "homepage": "https://github.com/achobanov/Web-Game#readme",
+  "dependencies": {},
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/core": "7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/preset-env": "7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "babel-loader": "8.0.6",
+    "file-loader": "^5.0.2",
+    "typescript": "^3.7.5",
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10"
+  }
+}
