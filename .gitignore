@@ -109,5 +109,5 @@ dist
 
 # Client bundle and assets
 Source/Server/source/webroot
-!Source/Server/webroot/source/index.html
+!Source/Server/source/webroot/index.html
 
