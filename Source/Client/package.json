@@ -1,0 +1,24 @@
+{
+  "name": "web-game_client",
+  "version": "0.0.1",
+  "description": "Web-Game's client package with basic bundling",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achobanov/Web-Game.git"
+  },
+  "keywords": [
+    "game",
+    "web",
+    "client"
+  ],
+  "author": "Alex Shepard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/achobanov/Web-Game/issues"
+  },
+  "homepage": "https://github.com/achobanov/Web-Game#readme"
+}
