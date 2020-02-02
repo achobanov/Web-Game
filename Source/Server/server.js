@@ -1,20 +1,25 @@
-var http = require('http');
-var fs = require('fs');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'webroot')));
+
+app.get('/', (request, response) => {
+  fs.readFile('./index.html', function(error, html) {
+    if (error) throw error
+  
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+    response.write(html);
+    response.end();
+  });
+})
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
-fs.readFile('./webroot/index.html', function(err, html) {
-  if (err) { throw err }
-
-  const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.write(html);
-    res.end();
-  });
-  
-  server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-  });
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });

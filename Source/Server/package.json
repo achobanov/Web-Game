@@ -22,5 +22,9 @@
     "url": "https://github.com/achobanov/Web-Game/issues"
   },
   "homepage": "https://github.com/achobanov/Web-Game#readme",
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "express": "4.17.1",
+    "node-static": "0.7.11"
+  }
 }
