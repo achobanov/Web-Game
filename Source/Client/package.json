@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && webpack",
-    "types": "tsc"
+    "types": "tsc",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
