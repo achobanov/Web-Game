@@ -5,8 +5,6 @@ Web game proof of concept
 
 ```
 git clone https://github.com/achobanov/Web-Game
-```
-```
 cd Web-Game
 ```
 
