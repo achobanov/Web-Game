@@ -7,6 +7,7 @@ module.exports = {
     filename: 'vendor.js',
     path: path.resolve(__dirname, '../Server/webroot/'),
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
