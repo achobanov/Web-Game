@@ -30,3 +30,8 @@ Run the Typescript compiler without emitting .js
 ```
 npm run types
 ```
+
+## Gallery
+![menu-gif](./Resources/start-game-gif.gif)
+![character-walk-gif](./Resources/character-sprite-walk-gif.gif)
+![character-shoot-gif](./Resources/character-sprite-shoot-gif.gif)
