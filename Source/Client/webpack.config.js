@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'vendor.js',
-    path: path.resolve(__dirname, '../Server/webroot/'),
+    path: path.resolve(__dirname, '../Server/webroot/scripts'),
   },
   devtool: 'source-map',
   module: {
@@ -23,9 +23,10 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
-        ],
+        loader: 'file-loader',
+        options: {
+            outputPath: '../images'
+        }
       },
     ]
   },
