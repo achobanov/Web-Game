@@ -1,5 +1,9 @@
+import ResourcesService from "./services/resources-service";
+
 export default class Game {
-    run = async () => {
-        console.log('running');
+    resources: ResourcesService
+    
+    constructor() {
+        this.resources = new ResourcesService()
     }
 }
