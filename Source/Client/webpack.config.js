@@ -9,7 +9,7 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.js', '.json']
   },
   module: {
     rules: [
@@ -17,12 +17,7 @@ module.exports = {
         test: /\.m?ts$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            rootMode: "upward",
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-proposal-class-properties']
-          }
+          loader: 'babel-loader'
         }
       },
       {
