@@ -1,11 +1,5 @@
-import Asset from '../assets/sniper.png'
-
-class Game {
-    run = () => {
-        var image = new Image();
-        image.src = Asset;
-        document.querySelector('body')?.appendChild(image);
+export default class Game {
+    run = async () => {
+        console.log('running');
     }
 }
-
-export default Game;
