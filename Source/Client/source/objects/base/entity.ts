@@ -1,20 +1,18 @@
 import GameObject from "./game-object";
 
-export interface IEntity {
-    update: (dt : number) => boolean;
+export interface IUpdateable {
+    update: (dt : number) => void;
 }
 
-export default class Entity extends GameObject implements IEntity {
-    id: string,
+export default class Entity extends GameObject {
+    uid: string;
     speed: number;
     frames: Array<Array<number>>;
     frameIndex: number;
     frameRate: number;
-    hasMoved : boolean;
-    hasChangedFrame: boolean;
 
     constructor(
-        id: string,
+        uid: string,
         x: number, 
         y: number, 
         width: number,
@@ -27,24 +25,12 @@ export default class Entity extends GameObject implements IEntity {
     ) {
         super(x, y, width, height, imageKey);
 
-        this.id = id;
+        this.uid = uid;
         this.speed = speed;
         this.frames = frames;
         this.frameIndex = frameIndex ?? 0;
         this.frameRate = frameRate;
-        this.hasMoved = false;
-        this.hasChangedFrame = false;
     }
-
-    update = (dt : number) : boolean => {
-        const hasUpdated = this.hasMoved || this.hasChangedFrame;
-
-        this.hasMoved = false;
-        this.hasChangedFrame = false;
-
-        return hasUpdated;
-    }
-        
 
     changeFrame = (index: number) : void => {
         if (!this.frames[index]) {
@@ -52,6 +38,5 @@ export default class Entity extends GameObject implements IEntity {
         }
 
         this.frameIndex = index;
-        this.hasChangedFrame = true;
     }
 }

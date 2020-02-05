@@ -1,11 +1,14 @@
 import ResourcesService from "./resources-service";
 
-export interface ISprite {
-    uid: string,
+export interface IRenderable {
     x: number,
     y: number,
     width: number,
     height: number,
+}
+
+export interface ISprite {
+    uid: string,
     imageKey: number,
     frameIndex: number,
     frames: Array<Array<number>>
@@ -25,6 +28,6 @@ export default class RenderService {
     }
 
     render = (sprite: ISprite) : void => {
-
+            
     }
 }
