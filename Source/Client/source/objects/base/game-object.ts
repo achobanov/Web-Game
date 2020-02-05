@@ -1,5 +1,7 @@
-export default class GameObject {
-    x: number;    
+import { IRenderable } from "../../services/render-service";
+
+export default class GameObject implements IRenderable {
+    x: number;
     y: number;
     width: number;
     height: number;
