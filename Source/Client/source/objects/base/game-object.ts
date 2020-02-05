@@ -1,8 +1,4 @@
-export interface IGameObject {
-    renderData: object;
-}
-
-export default class GameObject implements IGameObject {
+export default class GameObject {
     x: number;    
     y: number;
     width: number;
