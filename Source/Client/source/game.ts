@@ -1,9 +1,9 @@
-import ResourcesService from "./services/resources-service";
+import ImagesService from "./services/images-service";
 
 export default class Game {
-    resources: ResourcesService
+    resources: ImagesService
     
     constructor() {
-        this.resources = new ResourcesService()
+        this.resources = new ImagesService()
     }
 }

@@ -1,4 +1,4 @@
-import ResourcesService from "./resources-service";
+import ResourcesService from "./images-service";
 
 export interface IRenderable {
     x: number,
@@ -27,7 +27,8 @@ export default class RenderService {
         this._resourcesService = resourcesService;
     }
 
-    render = (sprite: ISprite) : void => {
-            
-    }
+    render = (sprite: ISprite) : void => 
+        this._context.drawImage(
+            this._resourcesService.images
+        )
 }

@@ -1,4 +1,4 @@
-export default class ResourcesService {
+export default class ImagesService {
     images: { [key:string]: HTMLImageElement };
     haveLoaded: Promise<void>
 
