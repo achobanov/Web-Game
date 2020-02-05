@@ -18,12 +18,12 @@ export default class Entity extends GameObject implements IEntity {
         width: number,
         height: number,
         speed: number,
-        image: string,
+        imageKey: string,
         frames: Array<Array<number>>,
         frameRate: number,
         frameIndex?: number,
     ) {
-        super(x, y, width, height, image);
+        super(x, y, width, height, imageKey);
 
         this.speed = speed;
         this.frames = frames;
