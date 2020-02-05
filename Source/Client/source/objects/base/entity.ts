@@ -6,11 +6,12 @@ export interface IEntity extends ISprite {
 }
 
 export default class Entity extends GameObject implements IEntity {
+    _speed: number;
+    _frames: Array<IRenderable>;
+    _frameIndex: number;
+    _frameRate: number;
+
     uid: string;
-    speed: number;
-    frames: Array<IRenderable>;
-    frameIndex: number;
-    frameRate: number;
     frame: IRenderable;
     
     constructor(
@@ -28,24 +29,37 @@ export default class Entity extends GameObject implements IEntity {
         super(x, y, width, height, imageKey);
         
         this.uid = uid;
-        this.speed = speed;
-        this.frames = frames;
-        this.frameIndex = frameIndex ?? 0;
-        this.frameRate = frameRate;
+        this._speed = speed;
+        this._frames = frames;
+        this._frameIndex = frameIndex ?? 0;
+        this._frameRate = frameRate;
         
-        this.frame = this.frames[this.frameIndex];
+        this.frame = this._frames[this._frameIndex];
     }
         
     update = (dt: number) : void => {
         throw new Error('"IEntity.update" must be overriden!');
     }
 
-    changeFrame = (index: number) : void => {
-        if (!this.frames[index]) {
+    _changeFrame = (index?: number) : void => {
+        if (!index) {
+            if (this._frameIndex === this._frames.length - 1)
+                this._frameIndex = 0;
+            else 
+                this._frameIndex++;
+            
+            return this._setFrame();
+        }
+
+        if (!this._frames[index]) {
             throw new RangeError('Index outside of frames array.');
         }
 
-        this.frameIndex = index;
-        this.frame = this.frames[index];
+        this._frameIndex = index;
+        this._setFrame();
+    }
+
+    _setFrame = () : void => {
+        this.frame = this._frames[this._frameIndex];
     }
 }
