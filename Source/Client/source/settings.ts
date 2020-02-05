@@ -1,9 +1,11 @@
 export interface ILaunchSettings {
-    imagePaths: Array<string>,
+    imagePaths: string[];
+    initialEntities: string[];
 }
 
 var launchSettings : ILaunchSettings = {
-    imagePaths: []
+    imagePaths: [],
+    initialEntities: [],
 };
 
 export default launchSettings; 
