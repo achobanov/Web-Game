@@ -1,4 +1,4 @@
-import ResourcesService from "./images-service";
+import ImagesService from "./images-service";
 
 export interface IRenderable {
     x: number,
@@ -7,28 +7,35 @@ export interface IRenderable {
     height: number,
 }
 
-export interface ISprite {
+export interface ISprite extends IRenderable { 
     uid: string,
-    imageKey: number,
-    frameIndex: number,
-    frames: Array<Array<number>>
+    imageKey: string,
+    frame: IRenderable,
 }
 
 export default class RenderService {
     _context : CanvasRenderingContext2D;
-    _resourcesService : ResourcesService;
+    _imagesService : ImagesService;
 
-    constructor(canvas: HTMLCanvasElement, resourcesService: ResourcesService) {
+    constructor(canvas: HTMLCanvasElement, ImagesService: ImagesService) {
         const context = canvas.getContext('2d');
         
         if (!context) throw new Error('Context not found!');
 
         this._context = context;
-        this._resourcesService = resourcesService;
+        this._imagesService = ImagesService;
     }
 
     render = (sprite: ISprite) : void => 
         this._context.drawImage(
-            this._resourcesService.images
+            this._imagesService.get(sprite.imageKey),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.width,
+            sprite.frame.height,
+            sprite.x,
+            sprite.y,
+            sprite.width,
+            sprite.height,
         )
 }
