@@ -1,15 +1,17 @@
 import GameObject from "./game-object";
+import { ISprite, IRenderable } from "../../services/render-service";
 
 export interface IUpdateable {
     update: (dt : number) => void;
 }
 
-export default class Entity extends GameObject {
+export default class Entity extends GameObject implements ISprite {
     uid: string;
     speed: number;
-    frames: Array<Array<number>>;
+    frames: Array<IRenderable>;
     frameIndex: number;
     frameRate: number;
+    frame: IRenderable;
 
     constructor(
         uid: string,
@@ -19,7 +21,7 @@ export default class Entity extends GameObject {
         height: number,
         speed: number,
         imageKey: string,
-        frames: Array<Array<number>>,
+        frames: Array<IRenderable>,
         frameRate: number,
         frameIndex?: number,
     ) {
@@ -30,6 +32,8 @@ export default class Entity extends GameObject {
         this.frames = frames;
         this.frameIndex = frameIndex ?? 0;
         this.frameRate = frameRate;
+        
+        this.frame = this.frames[this.frameIndex];
     }
 
     changeFrame = (index: number) : void => {
@@ -38,5 +42,6 @@ export default class Entity extends GameObject {
         }
 
         this.frameIndex = index;
+        this.frame = this.frames[index];
     }
 }
