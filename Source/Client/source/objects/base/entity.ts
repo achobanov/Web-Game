@@ -5,6 +5,7 @@ export interface IEntity {
 }
 
 export default class Entity extends GameObject implements IEntity {
+    id: string,
     speed: number;
     frames: Array<Array<number>>;
     frameIndex: number;
@@ -13,6 +14,7 @@ export default class Entity extends GameObject implements IEntity {
     hasChangedFrame: boolean;
 
     constructor(
+        id: string,
         x: number, 
         y: number, 
         width: number,
@@ -25,6 +27,7 @@ export default class Entity extends GameObject implements IEntity {
     ) {
         super(x, y, width, height, imageKey);
 
+        this.id = id;
         this.speed = speed;
         this.frames = frames;
         this.frameIndex = frameIndex ?? 0;

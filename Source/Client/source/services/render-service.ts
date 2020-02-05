@@ -1,6 +1,7 @@
 import ResourcesService from "./resources-service";
 
 export interface ISprite {
+    uid: string,
     x: number,
     y: number,
     width: number,
