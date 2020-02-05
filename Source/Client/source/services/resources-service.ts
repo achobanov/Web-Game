@@ -52,4 +52,7 @@ export default class ResourcesService {
 
         return frames;
     }
+
+    get = (key: string) : HTMLImageElement => 
+        this.images[key];
 }
