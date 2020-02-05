@@ -1,6 +1,5 @@
 export interface IEvent {
     key: string,
-    data: {},
 }
 
 export interface IEventHandler{
