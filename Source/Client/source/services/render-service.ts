@@ -16,7 +16,8 @@ export interface ISprite extends IRenderable {
 export default class RenderService {
     _context : CanvasRenderingContext2D;
     _imagesService : ImagesService;
-
+    _clear : () => void;
+    
     constructor(canvas: HTMLCanvasElement, ImagesService: ImagesService) {
         const context = canvas.getContext('2d');
         
@@ -24,6 +25,8 @@ export default class RenderService {
 
         this._context = context;
         this._imagesService = ImagesService;
+
+        this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     render = (sprite: ISprite) : void => 
@@ -37,5 +40,8 @@ export default class RenderService {
             sprite.y,
             sprite.width,
             sprite.height,
-        )
+        );
+
+    clear = () : void =>
+        this._clear();
 }
