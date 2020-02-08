@@ -1,3 +1,5 @@
+import { IRenderable } from "./render-service";
+
 export default class ImagesService {
     images: { [key:string]: HTMLImageElement };
     haveLoaded: Promise<void>
@@ -22,7 +24,7 @@ export default class ImagesService {
         });
     }
 
-    parseFrames = (key: string, framesCount: number) : Array<Array<number>> => {
+    parseFrames = (key: string, framesCount: number) : IRenderable[] => {
         const image = this.images[key];
 
         let frameWidth;
@@ -42,7 +44,14 @@ export default class ImagesService {
         let frameX = 0;
         let frameY = 0;
         for (let i = 0; i < framesCount; i++) {
-            frames.push([ frameX, frameY, frameWidth, frameHeight ]);
+            const frame : IRenderable = {
+                x: frameX,
+                y: frameY,
+                width: frameWidth,
+                height: frameHeight
+            };
+
+            frames.push(frame);
             
             if (isHorizontalMap)
                 frameX += frameWidth;
