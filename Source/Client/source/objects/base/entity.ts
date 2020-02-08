@@ -35,15 +35,15 @@ export default class Entity extends GameObject implements IEntity {
     ) {
         super(x, y, width, height, imageKey);
         
-        this.uid = uid;
         this._speed = speed;
         this._frames = frames;
         this._framesCount = frames.length;
         this._frameIndex = frameIndex ?? 0;
         this._frameRate = frameRate;
-        
         this._timeOnFrame = 0;
         
+        this.uid = uid;
+        this.z = z;
         this.frame = this._frames[this._frameIndex];
         this.framesCount = frames.length;
     }
