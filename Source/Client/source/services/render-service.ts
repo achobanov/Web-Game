@@ -5,7 +5,6 @@ export interface IRenderable {
     y: number,
     width: number,
     height: number,
-    z: number,
 }
 
 export interface ISprite extends IRenderable { 

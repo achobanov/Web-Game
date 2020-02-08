@@ -2,6 +2,7 @@ import GameObject from "./game-object";
 import { ISprite, IRenderable } from "../../services/render-service";
 
 export interface IEntity extends ISprite {
+    z: number,
     framesCount: number;
     update: (dt : number) => void;
 }
@@ -15,6 +16,7 @@ export default class Entity extends GameObject implements IEntity {
     _timeOnFrame: number;
     
     uid: string;
+    z: number;
     frame: IRenderable;
     framesCount: number;
     
@@ -31,7 +33,7 @@ export default class Entity extends GameObject implements IEntity {
         frameRate: number,
         frameIndex?: number,
     ) {
-        super(z, x, y, width, height, imageKey);
+        super(x, y, width, height, imageKey);
         
         this.uid = uid;
         this._speed = speed;
