@@ -7,7 +7,6 @@ export interface IEntity extends ISprite {
 }
 
 export default class Entity extends GameObject implements IEntity {
-    _dT: number;
     _speed: number;
     _frames: IRenderable[];
     _framesCount: number;
@@ -18,7 +17,6 @@ export default class Entity extends GameObject implements IEntity {
     uid: string;
     frame: IRenderable;
     framesCount: number;
-
     
     constructor(
         uid: string,
@@ -43,18 +41,17 @@ export default class Entity extends GameObject implements IEntity {
         this._frameRate = frameRate;
         
         this._timeOnFrame = 0;
-        this._dT = 0;
         
         this.frame = this._frames[this._frameIndex];
         this.framesCount = frames.length;
     }
         
-    update = (dt: number) : void => {
+    update = (dT: number) : void => {
         throw new Error('"IEntity.update" must be overriden!');
     }
 
-    _changeFrame = (index?: number) : void => {
-        var isTimeToUpdate = this._timeOnFrame + this._dT >= 1 / this._frameRate;
+    _changeFrame = (dT: number, index?: number) : void => {
+        var isTimeToUpdate = this._timeOnFrame + dT >= 1 / this._frameRate;
         if (!isTimeToUpdate) return;
 
         if (!index) {
