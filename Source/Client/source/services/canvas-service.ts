@@ -13,7 +13,7 @@ export interface ISprite extends IRenderable {
     frame: IRenderable,
 }
 
-export default class RenderService {
+export default class CanvasService {
     _context : CanvasRenderingContext2D;
     _imagesService : ImagesService;
     _clear : () => void;
