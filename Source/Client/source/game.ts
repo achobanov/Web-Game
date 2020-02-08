@@ -7,6 +7,9 @@ import { IEntity } from "./objects/base/entity";
 import SetupService from "./services/setup-service";
 
 export default class Game {
+    _cyclesPerSecond: number;
+    _passedSeconds: number;
+    
     _input: InputService;
     _events: EventsService;
     _render: RenderService;
@@ -21,9 +24,11 @@ export default class Game {
         this._events = new EventsService();
         this._input = new InputService(container, this._events);
         this._render = new RenderService(container as HTMLCanvasElement, images);
-        this._setup = new SetupService(images);
+        this._setup = new SetupService(images, this._events);
 
         this._entities = [];
+        this._cyclesPerSecond = 0;
+        this._passedSeconds = 0;
     }
 
     start = async () : Promise<void> => {
@@ -34,7 +39,7 @@ export default class Game {
         this._loop();
     }
 
-    _loop = () :void => {
+    _loop = () : void => {
         var now = Date.now();
         var dT = (now - this._previousFrameTime) / 1000.0;
 

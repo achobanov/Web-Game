@@ -3,12 +3,15 @@ import utils from "../utils/utils";
 import { IEntity } from "../objects/base/entity";
 import ImagesService from "./images-service";
 import Sniper from '../../assets/Sniper.png';
+import EventsService from "./events-service";
 
 export default class SetupService {
     _images: ImagesService;
+    _events: EventsService
 
-    constructor(images: ImagesService) {
+    constructor(images: ImagesService, events: EventsService) {
         this._images = images;
+        this._events = events;
     }
     
     proofOfConcept = async () : Promise<IEntity[]> => {
@@ -24,7 +27,7 @@ export default class SetupService {
         const imageKey = Sniper;
         const framesCount = 8;
         const frames = this._images.parseFrames(imageKey, framesCount);
-        const frameRate = 3;
+        const frameRate = 6;
 
         const soldier = new Soldier(id, z, x, y, width, height, speed, imageKey, frames, frameRate);
 
