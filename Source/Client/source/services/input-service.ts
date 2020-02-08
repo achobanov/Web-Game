@@ -10,17 +10,17 @@ export interface ICursorData {
 export default class InputService {
     eventsService: EventsService
 
-    constructor(containerElement: Node, eventsService: EventsService) {
+    constructor(container: Node, eventsService: EventsService) {
         this.eventsService = eventsService;
 
-        containerElement.addEventListener('mousedown', event => {
+        container.addEventListener('mousedown', event => {
             const mouseEvent = event as MouseEvent;
             const mouseClick = new MouseClickEvent(mouseEvent.which)
             
             this.eventsService.publish(mouseClick);
         })
 
-        containerElement.addEventListener('mousemove', event => {
+        container.addEventListener('mousemove', event => {
             const mouseEvent = event as MouseEvent;
             const mouseMove = new MouseMoveEvent({
                 x: mouseEvent.clientX,
