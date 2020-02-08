@@ -1,11 +1,11 @@
 export interface ILaunchSettings {
     imagePaths: string[];
-    initialEntities: string[];
+    setupKey: string,
 }
 
 var launchSettings : ILaunchSettings = {
     imagePaths: [],
-    initialEntities: [],
+    setupKey: 'proofOfConcept',
 };
 
 export default launchSettings; 
