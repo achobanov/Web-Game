@@ -7,11 +7,13 @@ export interface IEntity extends ISprite {
 }
 
 export default class Entity extends GameObject implements IEntity {
+    _dT: number;
     _speed: number;
-    _frames: Array<IRenderable>;
+    _frames: IRenderable[];
     _framesCount: number;
     _frameIndex: number;
     _frameRate: number;
+    _timeOnFrame: number;
     
     uid: string;
     frame: IRenderable;
@@ -40,6 +42,9 @@ export default class Entity extends GameObject implements IEntity {
         this._frameIndex = frameIndex ?? 0;
         this._frameRate = frameRate;
         
+        this._timeOnFrame = 0;
+        this._dT = 0;
+        
         this.frame = this._frames[this._frameIndex];
         this.framesCount = frames.length;
     }
@@ -49,6 +54,9 @@ export default class Entity extends GameObject implements IEntity {
     }
 
     _changeFrame = (index?: number) : void => {
+        var isTimeToUpdate = this._timeOnFrame + this._dT >= 1 / this._frameRate;
+        if (!isTimeToUpdate) return;
+
         if (!index) {
             if (this._frameIndex === this._frames.length - 1)
                 this._frameIndex = 0;
