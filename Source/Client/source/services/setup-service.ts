@@ -2,6 +2,7 @@ import Soldier from "../objects/soldier"
 import utils from "../utils/utils";
 import { IEntity } from "../objects/base/entity";
 import ImagesService from "./images-service";
+import Sniper from '../../assets/Sniper.png';
 
 export default class SetupService {
     _images: ImagesService;
@@ -20,7 +21,7 @@ export default class SetupService {
         const width = 50;
         const height = 50;
         const speed  = 10;
-        const imageKey = 'sniper.png';
+        const imageKey = Sniper;
         const framesCount = 8;
         const frames = this._images.parseFrames(imageKey, framesCount);
         const frameRate = 3;
