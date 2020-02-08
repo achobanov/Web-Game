@@ -3,7 +3,7 @@ export interface IEvent {
 }
 
 export interface IEventHandler{
-    (event: IEvent) : void;
+    (event?: IEvent) : void;
 }
 
 export default class EventsService {
