@@ -1,5 +1,16 @@
 import Game from './game'
+import launchSettings from './settings';
 
-var game = new Game();
+const container = document.getElementById('canvas');
+if (!container) {
+    throw new Error('Container element not found on page!');
+}
 
-game.run(); 
+container.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+    return false;
+});
+
+var game = new Game(container, launchSettings);
+
+game.start(); 
