@@ -16,9 +16,11 @@ export default class Entity extends GameObject implements IEntity {
     uid: string;
     frame: IRenderable;
     framesCount: number;
+
     
     constructor(
         uid: string,
+        z: number,
         x: number, 
         y: number, 
         width: number,
@@ -29,7 +31,7 @@ export default class Entity extends GameObject implements IEntity {
         frameRate: number,
         frameIndex?: number,
     ) {
-        super(x, y, width, height, imageKey);
+        super(z, x, y, width, height, imageKey);
         
         this.uid = uid;
         this._speed = speed;
