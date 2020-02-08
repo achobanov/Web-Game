@@ -12,9 +12,10 @@ export default class Entity extends GameObject implements IEntity {
     _framesCount: number;
     _frameIndex: number;
     _frameRate: number;
-
+    
     uid: string;
     frame: IRenderable;
+    framesCount: number;
     
     constructor(
         uid: string,
@@ -38,6 +39,7 @@ export default class Entity extends GameObject implements IEntity {
         this._frameRate = frameRate;
         
         this.frame = this._frames[this._frameIndex];
+        this.framesCount = frames.length;
     }
         
     update = (dt: number) : void => {
