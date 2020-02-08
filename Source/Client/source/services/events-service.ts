@@ -2,8 +2,8 @@ export interface IEvent {
     key: string,
 }
 
-export interface IEventHandler{
-    (event?: IEvent) : void;
+export interface IEventHandler {
+    (event: IEvent) : void;
 }
 
 export default class EventsService {

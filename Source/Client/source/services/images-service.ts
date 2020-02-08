@@ -1,4 +1,4 @@
-import { IRenderable } from "./render-service";
+import { IRenderable } from "./canvas-service";
 
 export default class ImagesService {
     images: { [key:string]: HTMLImageElement };
@@ -31,7 +31,6 @@ export default class ImagesService {
         let frameHeight;
 
         var isHorizontalMap = image.width > image.height;
-
         if (isHorizontalMap) {
             frameHeight = image.height;
             frameWidth = image.width / framesCount;

@@ -1,5 +1,5 @@
 import Entity from "./base/entity";
-import { IRenderable } from "../services/render-service";
+import { IRenderable } from "../services/canvas-service";
 import EventsService, { IEvent } from "../services/events-service";
 import MouseClickEvent from "../events/mouse-click-event";
 import MouseMoveEvent from "../events/mouse-move-event";
@@ -39,11 +39,11 @@ export default class Soldier extends Entity {
         this._changeFrame(dT);
     }
 
-    _move = (event: IEvent) => {
+    _move = () => {
         this._isMoving = true;
     }
 
-    _stop = (event: IEvent) => {
+    _stop = () => {
         this._isMoving = false;
     }
 }

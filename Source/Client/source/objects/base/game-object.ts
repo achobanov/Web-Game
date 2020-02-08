@@ -1,4 +1,4 @@
-import { IRenderable } from "../../services/render-service";
+import { IRenderable } from "../../services/canvas-service";
 
 export default class GameObject implements IRenderable {
     x: number;

@@ -1,5 +1,5 @@
 import GameObject from "./game-object";
-import { ISprite, IRenderable } from "../../services/render-service";
+import { ISprite, IRenderable } from "../../services/canvas-service";
 
 export interface IEntity extends ISprite {
     z: number,
@@ -29,7 +29,7 @@ export default class Entity extends GameObject implements IEntity {
         height: number,
         speed: number,
         imageKey: string,
-        frames: Array<IRenderable>,
+        frames: IRenderable[],
         frameRate: number,
         frameIndex?: number,
     ) {
