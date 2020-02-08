@@ -2,7 +2,9 @@ import { IEvent } from "../services/events-service";
 import { MouseButton } from "../enums/mouse-button";
 
 export default class MouseClickEvent implements IEvent {
-    key: string = 'mouse-click';
+    static Key = 'mouse-click';
+
+    key = MouseClickEvent.Key;
     button: MouseButton;
 
     constructor(button: MouseButton) {
