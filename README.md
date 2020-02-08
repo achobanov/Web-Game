@@ -11,12 +11,14 @@ cd Web-Game
 Build the client
 ```
 cd Client
+npm install
 npm run build
 ```
 
 Start the server
 ```
 cd ../Server
+npm install
 npm start
 ```
 ## Client tools
