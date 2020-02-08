@@ -54,7 +54,10 @@ export default class Entity extends GameObject implements IEntity {
 
     _changeFrame = (dT: number, index?: number) : void => {
         var isTimeToUpdate = this._timeOnFrame + dT >= 1 / this._frameRate;
-        if (!isTimeToUpdate) return;
+        if (!isTimeToUpdate) {
+            this._timeOnFrame += dT;
+            return;
+        }
 
         if (!index) {
             if (this._frameIndex === this._frames.length - 1)
@@ -74,6 +77,7 @@ export default class Entity extends GameObject implements IEntity {
     }
 
     _setFrame = () : void => {
+        this._timeOnFrame = 0;
         this.frame = this._frames[this._frameIndex];
     }
 }
