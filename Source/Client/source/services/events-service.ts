@@ -10,7 +10,7 @@ export default class EventsService {
     _subscriptions: { [key: string]: IEventHandler[] } = {}
 
     publish = (event: IEvent) =>
-        this._subscriptions[event.key].forEach(handle => handle(event));
+        this._subscriptions[event.key]?.forEach(handle => handle(event));
 
     subscribe = (key: string, handler: IEventHandler) => {
         var subscriptions = this._subscriptions[key];
