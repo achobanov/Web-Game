@@ -29,7 +29,7 @@ export default class SetupService {
         const frames = this._images.parseFrames(imageKey, framesCount);
         const frameRate = 6;
 
-        const soldier = new Soldier(id, z, x, y, width, height, speed, imageKey, frames, frameRate);
+        const soldier = new Soldier(this._events, id, z, x, y, width, height, speed, imageKey, frames, frameRate);
 
         return [ soldier ];
     }
