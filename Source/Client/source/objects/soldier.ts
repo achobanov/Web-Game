@@ -1,6 +1,6 @@
 import Entity from "./base/entity";
 import { IRenderable } from "../services/canvas-service";
-import EventsService, { IEvent } from "../services/events-service";
+import EventsService  from "../services/events-service";
 import MouseClickEvent from "../events/mouse-click-event";
 import MouseMoveEvent from "../events/mouse-move-event";
 
