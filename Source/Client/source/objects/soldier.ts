@@ -27,11 +27,11 @@ export default class Soldier extends Entity {
     }
 
     update = (dT: number) : void => {
-        if (this._isMoving) {
-            this.x += this._speed * dT;
-        }
+        if (this._shouldMove())
+            this._move(dT);
 
-        this._changeFrame(dT);
+        if (this._shouldChangeFrame(dT))
+            this._changeFrame(dT);
     }
 
     _onMouseClick = (event: MouseClickEvent) : void => {

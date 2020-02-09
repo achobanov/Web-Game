@@ -75,8 +75,8 @@ export default class Entity extends GameObject implements IEntity {
     _move = (dT: number) => {
         const distance = this._speed * dT;
 
-        this._updateLinear(this.x, distance, this._desination.x);
-        this._updateLinear(this.y, distance, this._desination.y);
+        this.x = this._updateLinear(this.x, distance, this._desination.x);
+        this.y = this._updateLinear(this.y, distance, this._desination.y);
         
         if (this._desination.x === this.x && this._desination.y === this.y) {
             this._stopMoving();
@@ -88,7 +88,7 @@ export default class Entity extends GameObject implements IEntity {
 
         return destination > current
             ? Math.min(current + distance, destination)
-            : Math.min(current - distance, destination);
+            : Math.max(current - distance, destination);
     }
 
     _startMoving = ({ x, y }: { x: number, y: number}) => {

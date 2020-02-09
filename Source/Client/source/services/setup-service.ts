@@ -22,7 +22,7 @@ export default class SetupService {
         const y = 550;
         const width = 50;
         const height = 50;
-        const speed  = 10;
+        const speed  = 100;
 
         const soldier = new Soldier(this._events, this._assets, id, z, x, y, width, height, speed);
 
