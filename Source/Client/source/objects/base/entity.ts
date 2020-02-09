@@ -3,14 +3,12 @@ import { ISprite, IRenderable } from "../../services/canvas-service";
 
 export interface IEntity extends ISprite {
     z: number,
-    framesCount: number;
     update: (dt : number) => void;
 }
 
 export default class Entity extends GameObject implements IEntity {
     _speed: number;
     _frames: IRenderable[];
-    _framesCount: number;
     _frameIndex: number;
     _frameRate: number;
     _timeOnFrame: number;
@@ -18,7 +16,6 @@ export default class Entity extends GameObject implements IEntity {
     uid: string;
     z: number;
     frame: IRenderable;
-    framesCount: number;
     
     constructor(
         uid: string,
@@ -37,7 +34,6 @@ export default class Entity extends GameObject implements IEntity {
         
         this._speed = speed;
         this._frames = frames;
-        this._framesCount = frames.length;
         this._frameIndex = frameIndex ?? 0;
         this._frameRate = frameRate;
         this._timeOnFrame = 0;
@@ -45,7 +41,6 @@ export default class Entity extends GameObject implements IEntity {
         this.uid = uid;
         this.z = z;
         this.frame = this._frames[this._frameIndex];
-        this.framesCount = frames.length;
     }
         
     update = (dT: number) : void => {

@@ -1,20 +1,29 @@
 import { IRenderable } from "./canvas-service";
+import { IAssetInfo } from "../settings";
 
-export default class ImagesService {
-    images: { [key:string]: HTMLImageElement };
+export interface IAsset extends IAssetInfo {
+    frames: IRenderable[];
+    image: HTMLImageElement;
+}
+
+export default class AssetsService {
+    assets: { [key:string]: IAsset };
     haveLoaded: Promise<void>
 
-    constructor(imagePaths: Array<string>) {
-        this.images = {};
+    constructor(assets: IAssetInfo[]) {
+        this.assets = {};
 
-        const requests = imagePaths.map(path => {
+        
+        const requests = assets.map(assetInfo => {
             const image = new Image();
-            image.src = path
+            image.src = assetInfo.path
 
-            this.images[path] = image;
-            
             return new Promise((resolve, _) => {
-                image.onload = () => resolve();
+                image.onload = () => {
+                    const asset = this._createAsset(image, assetInfo);
+                    this.assets[asset.path] = asset;
+                }
+                resolve();
             });
         });
 
@@ -24,9 +33,16 @@ export default class ImagesService {
         });
     }
 
-    parseFrames = (key: string, framesCount: number) : IRenderable[] => {
-        const image = this.images[key];
+    get = (key: string) : IAsset | undefined => 
+        this.assets[key];
 
+    _createAsset = (image: HTMLImageElement, assetInfo: IAssetInfo) : IAsset => ({ 
+            ...assetInfo, 
+            frames: this._parseFrames(image, assetInfo.framesCount),
+            image,
+        });
+
+    _parseFrames = (image: HTMLImageElement, framesCount: number) : IRenderable[] => {
         let frameWidth;
         let frameHeight;
 
@@ -60,7 +76,4 @@ export default class ImagesService {
 
         return frames;
     }
-
-    get = (key: string) : HTMLImageElement => 
-        this.images[key];
 }
