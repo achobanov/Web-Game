@@ -41,4 +41,7 @@ export default class Soldier extends Entity {
             this._startMoving(event.cursor);
         }
     }
+
+    _shouldChangeFrame = (dT: number) : boolean =>
+        this._isMoving && super._shouldChangeFrame(dT);
 }

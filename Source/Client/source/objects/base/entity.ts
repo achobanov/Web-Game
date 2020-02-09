@@ -53,17 +53,17 @@ export default class Entity extends GameObject implements IEntity {
         this.frame = this._frames[this._frameIndex];
     }
         
-    update = (dT: number) : void => {
+    update(dT: number) : void {
         if (this._shouldMove())
             this._move(dT);
 
         if (this._shouldChangeFrame(dT))
-            this._changeFrame(dT);
+            this._changeFrame();
     }
 
-    _shouldMove = () => this._isMoving;
+    _shouldMove() { return this._isMoving; }
 
-    _shouldChangeFrame = (dT: number) => {
+    _shouldChangeFrame(dT: number) {
         if (this._timeOnFrame + dT >= 1 / this._frameRate)
             return true;
         else {
@@ -72,7 +72,7 @@ export default class Entity extends GameObject implements IEntity {
         }
     }
     
-    _move = (dT: number) => {
+    _move(dT: number) {
         const distance = this._speed * dT;
 
         this.x = this._updateLinear(this.x, distance, this._desination.x);
@@ -83,7 +83,7 @@ export default class Entity extends GameObject implements IEntity {
         }
     }
 
-    _updateLinear = (current: number, distance: number, destination?: number) : number => {
+    _updateLinear(current: number, distance: number, destination?: number) : number {
         if (!destination) return current + distance;
 
         return destination > current
@@ -91,22 +91,16 @@ export default class Entity extends GameObject implements IEntity {
             : Math.max(current - distance, destination);
     }
 
-    _startMoving = ({ x, y }: { x: number, y: number}) => {
+    _startMoving({ x, y }: { x: number, y: number}) {
         this._desination = { x, y };
         this._isMoving = true;
     }
 
-    _stopMoving = () => {
+    _stopMoving() {
         this._isMoving = false;
     }
 
-    _changeFrame = (dT: number, index?: number) : void => {
-        var isTimeToUpdate = this._timeOnFrame + dT >= 1 / this._frameRate;
-        if (!isTimeToUpdate) {
-            this._timeOnFrame += dT;
-            return;
-        }
-
+    _changeFrame(index?: number) : void {
         if (!index) {
             if (this._frameIndex === this._frames.length - 1)
                 this._frameIndex = 0;
@@ -124,7 +118,7 @@ export default class Entity extends GameObject implements IEntity {
         this._setFrame();
     }
 
-    _setFrame = () : void => {
+    _setFrame() : void {
         this._timeOnFrame = 0;
         this.frame = this._frames[this._frameIndex];
     }
