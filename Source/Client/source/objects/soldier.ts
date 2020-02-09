@@ -31,7 +31,7 @@ export default class Soldier extends Entity {
             this._move(dT);
 
         if (this._shouldChangeFrame(dT))
-            this._changeFrame(dT);
+            this._changeFrame();
     }
 
     _onMouseClick = (event: MouseClickEvent) : void => {
