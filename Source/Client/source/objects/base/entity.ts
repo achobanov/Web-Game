@@ -75,8 +75,23 @@ export default class Entity extends GameObject implements IEntity {
     _move(dT: number) {
         const distance = this._speed * dT;
 
-        this.x = this._updateLinear(this.x, distance, this._desination.x);
-        this.y = this._updateLinear(this.y, distance, this._desination.y);
+        const xRemaining = Math.abs(this.x - this._desination.x);
+        const yRemaining = Math.abs(this.y - this._desination.y);
+        let xDistance, yDistance = 0;
+        if (xRemaining == yRemaining) {
+            xDistance = distance;
+            yDistance = distance;
+        } else if (xRemaining > yRemaining)
+        {
+            xDistance = distance;
+            yDistance = yRemaining / xRemaining * distance;
+        } else {
+            xDistance = xRemaining / yRemaining * distance;
+            yDistance = distance;
+        }
+
+        this.x = this._updateLinear(this.x, xDistance, this._desination.x);
+        this.y = this._updateLinear(this.y, yDistance, this._desination.y);
         
         if (this._desination.x === this.x && this._desination.y === this.y) {
             this._stopMoving();
