@@ -2,6 +2,10 @@ import RocketImagePath from "../../assets/rocket.png";
 import Entity from "./base/entity";
 import EventsService from "../services/events-service";
 import AssetsService from "../services/assets-service";
+import Explosion from "./explosion";
+import utils from "../utils/utils";
+import AddEntityEvent from "../events/add-entity-event";
+import RemoveEntityEvent from "../events/remove-entity-event";
 
 export default class Rocket extends Entity {
     _destinationX: number;
@@ -40,6 +44,9 @@ export default class Rocket extends Entity {
     _hasReachedDestination() { return this.x === this._destinationX && this.y === this._destinationY }
 
     _explode() {
+        const explosion = new Explosion(this._events, this._assets, utils.uId(), 200, this.x, this.y, 20, 20, 0);
 
+        this._events.publish(new AddEntityEvent(explosion));
+        this._events.publish(new RemoveEntityEvent(this.uid));
     }
 }

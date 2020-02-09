@@ -8,7 +8,7 @@ import MouseMoveEvent from "../events/mouse-move-event";
 import Rocket from "./rocket";
 import utils from "../utils/utils";
 import { ICoordinates } from "../services/canvas-service";
-import RocketFireEvent from "../events/rocket-fire-event";
+import AddEntityEvent from "../events/add-entity-event";
 
 export default class Soldier extends Entity {
     _events: EventsService;
@@ -60,7 +60,7 @@ export default class Soldier extends Entity {
         const centerY = this.y + this.height / 2;
         const rocket = new Rocket(this._events, this._assets, utils.uId(), 0, centerX, centerY, 30, 15, 150, x, y);
 
-        this._events.publish(new RocketFireEvent(rocket));
+        this._events.publish(new AddEntityEvent(rocket));
     }
 
     _rotate = (event: MouseMoveEvent) => {
