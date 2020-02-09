@@ -5,8 +5,8 @@ import EventsService from "./services/events-service";
 import CanvasService from "./services/canvas-service";
 import { IEntity } from "./objects/base/entity";
 import SetupService from "./services/setup-service";
-import RocketFireEvent from "./events/rocket-fire-event";
-import ExplosionEndEvent from "./events/explosion-end-event";
+import AddEntityEvent from "./events/add-entity-event";
+import RemoveEntityEvent from "./events/remove-entity-event";
 
 export default class Game {
     _cyclesPerSecond: number;
@@ -32,8 +32,8 @@ export default class Game {
         this._cyclesPerSecond = 0;
         this._passedSeconds = 0;
 
-        this._events.subscribe(RocketFireEvent.Key, this._addEntity);
-        this._events.subscribe(ExplosionEndEvent.Key, this._removeEntity); 
+        this._events.subscribe(AddEntityEvent.Key, this._addEntity);
+        this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity); 
     }
 
     start = async () : Promise<void> => {
