@@ -1,5 +1,6 @@
 import GameObject from "./game-object";
 import { ISprite, IRenderable } from "../../services/canvas-service";
+import AssetsService from "../../services/assets-service";
 
 export interface IEntity extends ISprite {
     z: number,
@@ -7,17 +8,23 @@ export interface IEntity extends ISprite {
 }
 
 export default class Entity extends GameObject implements IEntity {
+    _assets: AssetsService;
+
     _speed: number;
     _frames: IRenderable[];
     _frameIndex: number;
     _frameRate: number;
     _timeOnFrame: number;
+    _desination: { x: number, y: number };
+    _isMoving: boolean;
     
     uid: string;
     z: number;
     frame: IRenderable;
     
     constructor(
+        assets: AssetsService,
+        assetKey: string,
         uid: string,
         z: number,
         x: number, 
@@ -25,26 +32,72 @@ export default class Entity extends GameObject implements IEntity {
         width: number,
         height: number,
         speed: number,
-        imageKey: string,
-        frames: IRenderable[],
-        frameRate: number,
-        frameIndex?: number,
     ) {
-        super(x, y, width, height, imageKey);
+        super(x, y, width, height, assetKey);
         
+        this._assets = assets;
+
+        const asset = this._assets.get(assetKey);
+        if (!asset) throw new Error(`Asset with key ${assetKey} not found.`);
+
         this._speed = speed;
-        this._frames = frames;
-        this._frameIndex = frameIndex ?? 0;
-        this._frameRate = frameRate;
+        this._frames = asset.frames;
+        this._frameRate = asset.frameRate;
+        this._frameIndex = 0;
         this._timeOnFrame = 0;
-        
+        this._desination = { x ,y };
+        this._isMoving = false;
+
         this.uid = uid;
         this.z = z;
         this.frame = this._frames[this._frameIndex];
     }
         
     update = (dT: number) : void => {
-        throw new Error('"IEntity.update" must be overriden!');
+        if (this._shouldMove())
+            this._move(dT);
+
+        if (this._shouldChangeFrame(dT))
+            this._changeFrame(dT);
+    }
+
+    _shouldMove = () => this._isMoving;
+
+    _shouldChangeFrame = (dT: number) => {
+        if (this._timeOnFrame + dT >= 1 / this._frameRate)
+            return true;
+        else {
+            this._timeOnFrame += dT;
+            return false;
+        }
+    }
+    
+    _move = (dT: number) => {
+        const distance = this._speed * dT;
+
+        this._updateLinear(this.x, distance, this._desination.x);
+        this._updateLinear(this.y, distance, this._desination.y);
+        
+        if (this._desination.x === this.x && this._desination.y === this.y) {
+            this._stopMoving();
+        }
+    }
+
+    _updateLinear = (current: number, distance: number, destination?: number) : number => {
+        if (!destination) return current + distance;
+
+        return destination > current
+            ? Math.min(current + distance, destination)
+            : Math.min(current - distance, destination);
+    }
+
+    _startMoving = ({ x, y }: { x: number, y: number}) => {
+        this._desination = { x, y };
+        this._isMoving = true;
+    }
+
+    _stopMoving = () => {
+        this._isMoving = false;
     }
 
     _changeFrame = (dT: number, index?: number) : void => {

@@ -1,34 +1,29 @@
 import Entity from "./base/entity";
-import { IRenderable } from "../services/canvas-service";
 import EventsService  from "../services/events-service";
 import MouseClickEvent from "../events/mouse-click-event";
-import MouseMoveEvent from "../events/mouse-move-event";
+import SoldierImagePath from "../../assets/Soldier.png";
+import { MouseButton } from "../enums/mouse-button";
+import AssetsService from "../services/assets-service";
 
 export default class Soldier extends Entity {
     _events: EventsService;
-    _isMoving: boolean;
 
     constructor(
         events: EventsService,
+        assets: AssetsService,
         uid: string,
         z: number,
         x: number, 
         y: number, 
         width: number,
         height: number,
-        speed: number,
-        imageKey: string,
-        frames: IRenderable[],
-        frameRate: number,
-        frameIndex?: number,
+        speed: number
     ) {
-        super(uid, z, x, y, width, height, speed, imageKey, frames, frameRate, frameIndex);
+        super(assets, SoldierImagePath, uid, z, x, y, width, height, speed);
 
         this._events = events;
-        this._isMoving = false;
 
-        this._events.subscribe(MouseMoveEvent.Key, this._move);
-        this._events.subscribe(MouseClickEvent.Key, this._stop);
+        this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
     }
 
     update = (dT: number) : void => {
@@ -39,11 +34,11 @@ export default class Soldier extends Entity {
         this._changeFrame(dT);
     }
 
-    _move = () => {
-        this._isMoving = true;
-    }
-
-    _stop = () => {
-        this._isMoving = false;
+    _onMouseClick = (event: MouseClickEvent) : void => {
+        if (event.button === MouseButton.Left) {
+            // fire
+        } else {
+            this._startMoving(event.cursor);
+        }
     }
 }

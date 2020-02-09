@@ -15,7 +15,7 @@ export interface ISprite extends IRenderable {
 
 export default class CanvasService {
     _context : CanvasRenderingContext2D;
-    _imagesService : AssetsService;
+    _assetsService : AssetsService;
     _clear : () => void;
     
     constructor(canvas: HTMLCanvasElement, ImagesService: AssetsService) {
@@ -24,18 +24,18 @@ export default class CanvasService {
         if (!context) throw new Error('Context not found!');
 
         this._context = context;
-        this._imagesService = ImagesService;
+        this._assetsService = ImagesService;
 
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     render = (sprite: ISprite) : void =>
     {
-        const image = this._imagesService.get(sprite.imageKey);
-        if (!image) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
+        const asset = this._assetsService.get(sprite.imageKey);
+        if (!asset) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
 
         this._context.drawImage(
-            image,
+            asset.image,
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.width,

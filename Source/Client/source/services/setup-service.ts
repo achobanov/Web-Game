@@ -2,7 +2,6 @@ import Soldier from "../objects/soldier"
 import utils from "../utils/utils";
 import { IEntity } from "../objects/base/entity";
 import AssetsService from "./assets-service";
-import Sniper from '../../assets/Sniper.png';
 import EventsService from "./events-service";
 
 export default class SetupService {
@@ -16,8 +15,6 @@ export default class SetupService {
     
     proofOfConcept = async () : Promise<IEntity[]> => {
         await this._assets.haveLoaded;
-        const asset = this._assets.get(Sniper);
-        if (!asset) throw new Error('kur');
 
         const id = utils.uId();
         const z = 1;
@@ -26,11 +23,8 @@ export default class SetupService {
         const width = 50;
         const height = 50;
         const speed  = 10;
-        const imageKey = Sniper;
-        const frames = asset.frames
-        const frameRate = asset.frameRate;
 
-        const soldier = new Soldier(this._events, id, z, x, y, width, height, speed, imageKey, frames, frameRate);
+        const soldier = new Soldier(this._events, this._assets, id, z, x, y, width, height, speed);
 
         return [ soldier ];
     }

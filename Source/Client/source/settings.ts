@@ -1,4 +1,4 @@
-import Sniper from '../assets/Sniper.png';
+import Soldier from '../assets/Soldier.png';
 
 export interface IAssetInfo {
     path: string,
@@ -14,7 +14,7 @@ export interface ILaunchSettings {
 var launchSettings : ILaunchSettings = {
     assets: [ 
         {
-            path: Sniper,
+            path: Soldier,
             framesCount: 8,
             frameRate: 6
         }
