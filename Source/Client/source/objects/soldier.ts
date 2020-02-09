@@ -24,6 +24,13 @@ export default class Soldier extends Entity {
 
         this._events = events;
 
+        this.effects.push({
+            fill: '#c96c6c',
+            point1: { x: x + 13, y: y + 5 },
+            point2: { x: x + 13.7, y: y + 5 },
+            point3: { x: x + 13.35, y: y - 505 },
+        });
+
         this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);
     }

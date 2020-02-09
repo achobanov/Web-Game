@@ -1,17 +1,31 @@
 import AssetsService from "./assets-service";
 
-export interface IRenderable {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
+export interface ICoordinates {
+    x: number;
+    y: number;
+}
+
+export interface IRenderable extends ICoordinates {
+    width: number;
+    height: number;
+}
+
+export interface IShape {
+    fill: string;
+}
+
+export interface ITriangle extends IShape {
+    point1: ICoordinates;
+    point2: ICoordinates;
+    point3: ICoordinates;
 }
 
 export interface ISprite extends IRenderable { 
-    uid: string,
-    imageKey: string,
-    frame: IRenderable,
-    angle: number,
+    uid: string;
+    imageKey: string;
+    frame: IRenderable;
+    angle: number;
+    effects?: ITriangle[];
 }
 
 export default class CanvasService {
@@ -57,7 +71,21 @@ export default class CanvasService {
             sprite.width,
             sprite.height,
         );
-        
+
+        if (sprite.effects) {
+            for (const effect of sprite.effects) {
+                this._context.fillStyle = effect.fill;
+                this._context.beginPath();
+                this._context.moveTo(effect.point1.x, effect.point1.y);
+                this._context.lineTo(effect.point2.x, effect.point2.y);
+                this._context.lineTo(effect.point3.x, effect.point3.y);
+                this._context.closePath();
+                this._context.fill();
+            }
+        }
+
+        this._context.fillStyle = 'black';
+
         if (sprite.angle) {
             this._context.restore();
         }
