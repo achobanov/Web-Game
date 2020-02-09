@@ -1,10 +1,10 @@
 import { IRenderable } from "./canvas-service";
 
-export default class ImagesService {
+export default class AssetsService {
     images: { [key:string]: HTMLImageElement };
     haveLoaded: Promise<void>
 
-    constructor(imagePaths: Array<string>) {
+    constructor(imagePaths: string[]) {
         this.images = {};
 
         const requests = imagePaths.map(path => {

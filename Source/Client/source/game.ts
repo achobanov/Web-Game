@@ -1,4 +1,4 @@
-import ImagesService from "./services/images-service";
+import AssetsService from "./services/assets-service";
 import { ILaunchSettings } from "./settings";
 import InputService from "./services/input-service";
 import EventsService from "./services/events-service";
@@ -19,7 +19,7 @@ export default class Game {
     _entities: IEntity[];
 
     constructor(container: Node, settings: ILaunchSettings) {
-        const images = new ImagesService(settings.imagePaths);
+        const images = new AssetsService(settings.imagePaths);
         
         this._events = new EventsService();
         this._input = new InputService(container, this._events);

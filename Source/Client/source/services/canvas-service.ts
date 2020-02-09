@@ -1,4 +1,4 @@
-import ImagesService from "./images-service";
+import AssetsService from "./assets-service";
 
 export interface IRenderable {
     x: number,
@@ -15,10 +15,10 @@ export interface ISprite extends IRenderable {
 
 export default class CanvasService {
     _context : CanvasRenderingContext2D;
-    _imagesService : ImagesService;
+    _imagesService : AssetsService;
     _clear : () => void;
     
-    constructor(canvas: HTMLCanvasElement, ImagesService: ImagesService) {
+    constructor(canvas: HTMLCanvasElement, ImagesService: AssetsService) {
         const context = canvas.getContext('2d');
         
         if (!context) throw new Error('Context not found!');
