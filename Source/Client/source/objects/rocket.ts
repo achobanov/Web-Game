@@ -8,8 +8,6 @@ import AddEntityEvent from "../events/add-entity-event";
 import RemoveEntityEvent from "../events/remove-entity-event";
 
 export default class Rocket extends Entity {
-    _destinationX: number;
-    _destinationY: number;
     _events: EventsService;
 
     constructor(
@@ -21,6 +19,7 @@ export default class Rocket extends Entity {
         y: number, 
         width: number,
         height: number,
+        angle: number,
         speed: number,
         destinationX: number,
         destinationY: number,
@@ -29,9 +28,9 @@ export default class Rocket extends Entity {
 
         this._events = events;
 
+        this.angle = angle;
         this._isMoving = true;
-        this._destinationX = destinationX;
-        this._destinationY = destinationY;
+        this._desination = { x: destinationX, y: destinationY };
     }
 
     update(dT: number) : void {
@@ -41,7 +40,7 @@ export default class Rocket extends Entity {
         super.update(dT);
     }
 
-    _hasReachedDestination() { return this.x === this._destinationX && this.y === this._destinationY }
+    _hasReachedDestination() { return this.x === this._desination.x && this.y === this._desination.y }
 
     _explode() {
         const explosion = new Explosion(this._events, this._assets, utils.uId(), 200, this.x, this.y, 20, 20, 0);

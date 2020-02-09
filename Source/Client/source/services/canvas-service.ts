@@ -76,9 +76,9 @@ export default class CanvasService {
             for (const effect of sprite.effects) {
                 this._context.fillStyle = effect.fill;
                 this._context.beginPath();
-                this._context.moveTo(effect.point1.x, effect.point1.y);
-                this._context.lineTo(effect.point2.x, effect.point2.y);
-                this._context.lineTo(effect.point3.x, effect.point3.y);
+                this._context.moveTo(x + 13, y + 5);
+                this._context.lineTo(x + 13.7, y + 5);
+                this._context.lineTo(x + 13.35, y - 505);
                 this._context.closePath();
                 this._context.fill();
             }

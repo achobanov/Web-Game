@@ -63,11 +63,11 @@ export default class Game {
         this._entities.forEach(x => this._canvas.render(x));
     }
 
-    _addEntity(entity: IEntity) {
+    _addEntity = ({ entity }: AddEntityEvent) => {
         this._entities.push(entity);
     }
 
-    _removeEntity(id: string) {
-        this._entities = this._entities.filter(x => x.uid == id);
+    _removeEntity = ({ id }: RemoveEntityEvent) => {
+        this._entities = this._entities.filter(x => x.uid !== id);
     }
 }

@@ -1,7 +1,7 @@
 import Entity from "./base/entity";
 import EventsService  from "../services/events-service";
 import MouseClickEvent from "../events/mouse-click-event";
-import SoldierImagePath from "../../assets/Soldier.png";
+import SoldierImagePath from "../../assets/soldier.png";
 import { MouseButton } from "../enums/mouse-button";
 import AssetsService from "../services/assets-service";
 import MouseMoveEvent from "../events/mouse-move-event";
@@ -56,9 +56,9 @@ export default class Soldier extends Entity {
     }
 
     _fire({ x, y }: ICoordinates) {
-        const centerX = this.x + this.width / 2;
-        const centerY = this.y + this.height / 2;
-        const rocket = new Rocket(this._events, this._assets, utils.uId(), 0, centerX, centerY, 30, 15, 150, x, y);
+        const centerX = this.x;
+        const centerY = this.y;
+        const rocket = new Rocket(this._events, this._assets, utils.uId(), 0, centerX, centerY, 30, 15, this.angle, 150, x, y);
 
         this._events.publish(new AddEntityEvent(rocket));
     }
