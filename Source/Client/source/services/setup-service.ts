@@ -16,7 +16,9 @@ export default class SetupService {
     
     proofOfConcept = async () : Promise<IEntity[]> => {
         await this._assets.haveLoaded;
-        
+        const asset = this._assets.get(Sniper);
+        if (!asset) throw new Error('kur');
+
         const id = utils.uId();
         const z = 1;
         const x = 550;
@@ -25,8 +27,8 @@ export default class SetupService {
         const height = 50;
         const speed  = 10;
         const imageKey = Sniper;
-        const frames = this._assets.parseFrames(imageKey);
-        const frameRate = 6;
+        const frames = asset.frames
+        const frameRate = asset.frameRate;
 
         const soldier = new Soldier(this._events, id, z, x, y, width, height, speed, imageKey, frames, frameRate);
 
