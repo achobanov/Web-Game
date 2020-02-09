@@ -11,6 +11,7 @@ export interface ISprite extends IRenderable {
     uid: string,
     imageKey: string,
     frame: IRenderable,
+    angle: number,
 }
 
 export default class CanvasService {
@@ -34,17 +35,32 @@ export default class CanvasService {
         const asset = this._assetsService.get(sprite.imageKey);
         if (!asset) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
 
+        let x = sprite.x;
+        let y = sprite.y;
+
+        if (sprite.angle) {
+            this._context.save();
+            this._context.translate(sprite.x, sprite.y);
+            this._context.rotate(sprite.angle);
+            x = 0;
+            y = 0;
+        }
+
         this._context.drawImage(
             asset.image,
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.width,
             sprite.frame.height,
-            sprite.x,
-            sprite.y,
+            x,
+            y,
             sprite.width,
             sprite.height,
         );
+        
+        if (sprite.angle) {
+            this._context.restore();
+        }
     }
 
     clear = () : void =>

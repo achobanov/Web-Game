@@ -21,6 +21,7 @@ export default class Entity extends GameObject implements IEntity {
     uid: string;
     z: number;
     frame: IRenderable;
+    angle: number;
     
     constructor(
         assets: AssetsService,
@@ -51,6 +52,7 @@ export default class Entity extends GameObject implements IEntity {
         this.uid = uid;
         this.z = z;
         this.frame = this._frames[this._frameIndex];
+        this.angle = 0;
     }
         
     update(dT: number) : void {

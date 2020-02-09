@@ -4,6 +4,7 @@ import MouseClickEvent from "../events/mouse-click-event";
 import SoldierImagePath from "../../assets/Soldier.png";
 import { MouseButton } from "../enums/mouse-button";
 import AssetsService from "../services/assets-service";
+import MouseMoveEvent from "../events/mouse-move-event";
 
 export default class Soldier extends Entity {
     _events: EventsService;
@@ -24,6 +25,7 @@ export default class Soldier extends Entity {
         this._events = events;
 
         this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
+        this._events.subscribe(MouseMoveEvent.Key, this._rotate);
     }
 
     update = (dT: number) : void => {
@@ -36,10 +38,16 @@ export default class Soldier extends Entity {
 
     _onMouseClick = (event: MouseClickEvent) : void => {
         if (event.button === MouseButton.Left) {
-            // fire
-        } else {
+            // fire8
+        } else {1
             this._startMoving(event.cursor);
         }
+    }
+
+    _rotate = (event: MouseMoveEvent) => {
+        const dX = event.cursor.x - this.x;
+        const dY = event.cursor.y - this.y;
+        this.angle = Math.atan2(dY, dX) + 1.51; // fixes :D
     }
 
     _shouldChangeFrame = (dT: number) : boolean =>
