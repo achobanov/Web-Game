@@ -1,14 +1,13 @@
 import Sniper from '../assets/Sniper.png';
 
-export interface IAsset {
+export interface IAssetInfo {
     path: string,
-    frames: number,
+    framesCount: number,
     frameRate: number,
-    image?: HTMLImageElement,
 }
 
 export interface ILaunchSettings {
-    assets: IAsset[];
+    assets: IAssetInfo[];
     setupKey: string,
 }
 
@@ -16,7 +15,7 @@ var launchSettings : ILaunchSettings = {
     assets: [ 
         {
             path: Sniper,
-            frames: 8,
+            framesCount: 8,
             frameRate: 6
         }
     ],

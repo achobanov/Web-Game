@@ -1,23 +1,29 @@
 import { IRenderable } from "./canvas-service";
-import { IAsset } from "../settings";
+import { IAssetInfo } from "../settings";
+
+export interface IAsset extends IAssetInfo {
+    frames: IRenderable[];
+    image: HTMLImageElement;
+}
 
 export default class AssetsService {
     assets: { [key:string]: IAsset };
     haveLoaded: Promise<void>
 
-    constructor(assets: IAsset[]) {
+    constructor(assets: IAssetInfo[]) {
         this.assets = {};
 
         
-        const requests = assets.map(asset => {
+        const requests = assets.map(assetInfo => {
             const image = new Image();
-            image.src = asset.path
-            asset.image = image;
+            image.src = assetInfo.path
 
-            this.assets[asset.path] = asset;
-            
             return new Promise((resolve, _) => {
-                image.onload = () => resolve();
+                image.onload = () => {
+                    const asset = this._createAsset(image, assetInfo);
+                    this.assets[asset.path] = asset;
+                }
+                resolve();
             });
         });
 
@@ -27,12 +33,16 @@ export default class AssetsService {
         });
     }
 
-    parseFrames = (key: string) : IRenderable[] => {
-        const asset = this.assets[key];
-        if (!asset.image) throw new Error('Image is not loaded.');
+    get = (key: string) : IAsset | undefined => 
+        this.assets[key];
 
-        const framesCount = asset.frames;
-        const image = asset.image;
+    _createAsset = (image: HTMLImageElement, assetInfo: IAssetInfo) : IAsset => ({ 
+            ...assetInfo, 
+            frames: this._parseFrames(image, assetInfo.framesCount),
+            image,
+        });
+
+    _parseFrames = (image: HTMLImageElement, framesCount: number) : IRenderable[] => {
         let frameWidth;
         let frameHeight;
 
@@ -66,7 +76,4 @@ export default class AssetsService {
 
         return frames;
     }
-
-    get = (key: string) : HTMLImageElement | undefined => 
-        this.assets[key]?.image;
 }
