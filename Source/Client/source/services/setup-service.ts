@@ -25,8 +25,7 @@ export default class SetupService {
         const height = 50;
         const speed  = 10;
         const imageKey = Sniper;
-        const framesCount = 8;
-        const frames = this._assets.parseFrames(imageKey, framesCount);
+        const frames = this._assets.parseFrames(imageKey);
         const frameRate = 6;
 
         const soldier = new Soldier(this._events, id, z, x, y, width, height, speed, imageKey, frames, frameRate);

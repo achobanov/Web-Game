@@ -19,7 +19,7 @@ export default class Game {
     _entities: IEntity[];
 
     constructor(container: Node, settings: ILaunchSettings) {
-        const images = new AssetsService(settings.imagePaths);
+        const images = new AssetsService(settings.assets);
         
         this._events = new EventsService();
         this._input = new InputService(container, this._events);

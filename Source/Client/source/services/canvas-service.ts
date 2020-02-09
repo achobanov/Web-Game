@@ -29,9 +29,13 @@ export default class CanvasService {
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    render = (sprite: ISprite) : void => 
+    render = (sprite: ISprite) : void =>
+    {
+        const image = this._imagesService.get(sprite.imageKey);
+        if (!image) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
+
         this._context.drawImage(
-            this._imagesService.get(sprite.imageKey),
+            image,
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.width,
@@ -41,6 +45,7 @@ export default class CanvasService {
             sprite.width,
             sprite.height,
         );
+    }
 
     clear = () : void =>
         this._clear();

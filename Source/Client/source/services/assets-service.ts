@@ -1,17 +1,20 @@
 import { IRenderable } from "./canvas-service";
+import { IAsset } from "../settings";
 
 export default class AssetsService {
-    images: { [key:string]: HTMLImageElement };
+    assets: { [key:string]: IAsset };
     haveLoaded: Promise<void>
 
-    constructor(imagePaths: string[]) {
-        this.images = {};
+    constructor(assets: IAsset[]) {
+        this.assets = {};
 
-        const requests = imagePaths.map(path => {
+        
+        const requests = assets.map(asset => {
             const image = new Image();
-            image.src = path
+            image.src = asset.path
+            asset.image = image;
 
-            this.images[path] = image;
+            this.assets[asset.path] = asset;
             
             return new Promise((resolve, _) => {
                 image.onload = () => resolve();
@@ -24,9 +27,12 @@ export default class AssetsService {
         });
     }
 
-    parseFrames = (key: string, framesCount: number) : IRenderable[] => {
-        const image = this.images[key];
+    parseFrames = (key: string) : IRenderable[] => {
+        const asset = this.assets[key];
+        if (!asset.image) throw new Error('Image is not loaded.');
 
+        const framesCount = asset.frames;
+        const image = asset.image;
         let frameWidth;
         let frameHeight;
 
@@ -61,6 +67,6 @@ export default class AssetsService {
         return frames;
     }
 
-    get = (key: string) : HTMLImageElement => 
-        this.images[key];
+    get = (key: string) : HTMLImageElement | undefined => 
+        this.assets[key]?.image;
 }
