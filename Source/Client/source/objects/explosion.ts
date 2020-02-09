@@ -2,9 +2,9 @@ import ExplosionPathName from "../../assets/explosion.png";
 import Entity from "./base/entity";
 import EventsService from "../services/events-service";
 import AssetsService from "../services/assets-service";
-import ExplosionEndEvent from "../events/explosion-end-event";
+import RemoveEntityEvent from "../events/remove-entity-event";
 
-export default class Rocket extends Entity {
+export default class Explosion extends Entity {
     _events: EventsService;
 
     constructor(
@@ -33,6 +33,6 @@ export default class Rocket extends Entity {
     _hasExploded() { return this._frameIndex === this._frames.length - 1 }
 
     _end() {
-        this._events.publish(new ExplosionEndEvent(this.uid));
+        this._events.publish(new RemoveEntityEvent(this.uid));
     }
 }
