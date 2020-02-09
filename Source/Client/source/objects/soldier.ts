@@ -5,6 +5,10 @@ import SoldierImagePath from "../../assets/Soldier.png";
 import { MouseButton } from "../enums/mouse-button";
 import AssetsService from "../services/assets-service";
 import MouseMoveEvent from "../events/mouse-move-event";
+import Rocket from "./rocket";
+import utils from "../utils/utils";
+import { ICoordinates } from "../services/canvas-service";
+import RocketFireEvent from "../events/rocket-fire-event";
 
 export default class Soldier extends Entity {
     _events: EventsService;
@@ -45,10 +49,18 @@ export default class Soldier extends Entity {
 
     _onMouseClick = (event: MouseClickEvent) : void => {
         if (event.button === MouseButton.Left) {
-            // fire8
+            this._fire(event.cursor);
         } else {1
             this._startMoving(event.cursor);
         }
+    }
+
+    _fire({ x, y }: ICoordinates) {
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        const rocket = new Rocket(this._events, this._assets, utils.uId(), 0, centerX, centerY, 30, 15, 150, x, y);
+
+        this._events.publish(new RocketFireEvent(rocket));
     }
 
     _rotate = (event: MouseMoveEvent) => {
