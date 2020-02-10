@@ -1,4 +1,4 @@
-import ExplosionPathName from "../../assets/explosion.png";
+import ExplosionPathName from "../../../assets/explosion.png";
 import Entity from "../sprites/entity";
 import EventsService from "../../services/events-service";
 import AssetsService from "../../services/assets-service";

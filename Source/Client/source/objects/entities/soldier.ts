@@ -1,7 +1,7 @@
 import Entity from "../sprites/entity";
 import EventsService  from "../../services/events-service";
 import MouseClickEvent from "../../events/mouse-click-event";
-import SoldierImagePath from "../../assets/soldier.png";
+import SoldierImagePath from "../../../assets/soldier.png";
 import { MouseButton } from "../../enums/mouse-button";
 import AssetsService from "../../services/assets-service";
 import MouseMoveEvent from "../../events/mouse-move-event";
