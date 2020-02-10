@@ -10,36 +10,35 @@ export default class Menu {
     
     _events: EventsService;
     
-    _background: Rectangle;
-    _button: Rectangle;
-    _text: TextObject;
-
     constructor(events: EventsService) {
         this._events = events;
 
-        this._background = this._createBackground();
-        this._button = this._createButton();
-        this._text = this._createText();
-
-        this.objects = [ this._background, this._button, this._text ];
+        this.objects = [
+            ...this._createBackground(),
+            this._createButton(),
+            this._createText(),
+        ]
     }
 
     _createBackground() {
-        const background = new Rectangle(utils.uId(), 100, 200, 760, 560, 0, 'gray');
+        const background = new Rectangle(utils.uId(), 50, 200, 860, 560, 0, 'darkgray');
+        const innerBackground = new Rectangle(utils.uId(), 60, 210, 840, 540, 0, 'gray');
+        
         this._events.publish(new AddEntityEvent(background));
-
-        return background;
+        this._events.publish(new AddEntityEvent(innerBackground));
+        
+        return [ background, innerBackground ];
     }
 
     _createButton() {
-        const button = new Rectangle(utils.uId(), 200, 300, 560, 360, 0, 'green');
+        const button = new Rectangle(utils.uId(), 300, 450, 360, 60, 0, 'green');
         this._events.publish(new AddEntityEvent(button));
 
         return button;
     }
 
     _createText() {
-        const text = new TextObject(utils.uId(), 'Start Game', 250, 320, 0, 'white');
+        const text = new TextObject(utils.uId(), 'Start Game', '30px serif', 410, 490, 0, 'white');
         this._events.publish(new AddEntityEvent(text));
 
         return text;
