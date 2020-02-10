@@ -14,10 +14,11 @@ export default class MoveIndicator extends Circle {
         x: number,
         y: number,
         radius: number,
+        alpha?: number,
         fill?: string,
-        stroke?: string
+        stroke?: string,
     ) {
-        super(id, x, y, radius, fill, stroke);
+        super(id, x - 7, y - 10, radius, fill, stroke, alpha);
 
         this._events = events;
         this._activeDuration = 0.5;
@@ -31,5 +32,7 @@ export default class MoveIndicator extends Circle {
             this._events.publish(new RemoveEntityEvent(this.id));
 
         this.radius += this._frameRate * dT;
+        if (this.alpha)
+            this.alpha = this.alpha - dT;
     }
 }

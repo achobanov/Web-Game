@@ -24,5 +24,6 @@ export default class Shape implements IGameObject {
         this.angle = angle;
         this.fill = fill;
         this.stroke = stroke;
+        this.alpha = alpha;
     }
 }

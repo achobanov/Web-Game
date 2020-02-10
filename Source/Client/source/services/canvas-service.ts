@@ -37,6 +37,8 @@ export default class CanvasService {
             this._context.fillStyle = object.fill;
         if (object.stroke)
             this._context.strokeStyle = object.stroke;
+        if (object.alpha)
+            this._context.globalAlpha = object.alpha;
 
         if (utils.isOfType(object, Sprite))
             this._renderSprite(object);
@@ -53,7 +55,6 @@ export default class CanvasService {
 
         this._context.restore();
     }
-
 
     _renderSprite = (sprite: ISprite) => {
         const asset = this._assetsService.get(sprite.assetKey);

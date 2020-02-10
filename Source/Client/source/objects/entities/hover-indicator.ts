@@ -19,8 +19,7 @@ export default class HoverIndicator extends Circle {
 
     _handleMove = ({ cursor }: MouseMoveEvent) => {
         const { x, y } = cursor;
-        this.x = x - this.radius * 0.75;
-        this.y = y - this.radius * 0.75;
+        this._offsetCenter(x, y);
     }
 
     _handleClick = ({ button }: MouseClickEvent) => {

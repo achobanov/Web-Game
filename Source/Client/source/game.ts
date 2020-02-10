@@ -88,7 +88,7 @@ export default class Game {
             return;
 
         const { x, y } = cursor;
-        const indicator = new MoveIndicator(this._events, utils.uId(), x, y, 1, '', 'red');
+        const indicator = new MoveIndicator(this._events, utils.uId(), x, y, 1, 1, '', 'red');
         this._objects.push(indicator);
     }
 }
