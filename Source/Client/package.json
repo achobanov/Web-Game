@@ -5,7 +5,6 @@
   "description": "Web-Game's client package with basic bundling",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && webpack",
     "types": "tsc",
     "watch": "webpack --watch"
