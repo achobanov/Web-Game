@@ -38,24 +38,8 @@ export default class Rocket extends Entity {
     _shouldExplode() { return this.x === this._desination.x && this.y === this._desination.y }
 
     _explode() {
-        const id = utils.uId();
-        const z = 200;
-        const width = 120;
-        const height = 120;
-        const speed = 0;
-
-        const explosion = new Explosion(
-            this._events, 
-            this._assets, 
-            id, 
-            z, 
-            this.x, 
-            this.y, 
-            width, 
-            height, 
-            this.angle,
-            speed);
-
+        const explosion = new Explosion(this._events, this._assets, this.x, this.y, this.angle);
+        
         this._events.publish(new AddObjectEvent(explosion));
         this._events.publish(new RemoveObjectEvent(this.id));
     }

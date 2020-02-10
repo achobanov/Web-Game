@@ -3,6 +3,7 @@ import Entity from "./entity";
 import EventsService from "../../services/events-service";
 import AssetsService from "../../services/assets-service";
 import RemoveObjectEvent from "../../events/remove-object-event";
+import utils from "../../utils/utils";
 
 export default class Explosion extends Entity {
     _events: EventsService;
@@ -10,16 +11,11 @@ export default class Explosion extends Entity {
     constructor(
         events: EventsService,
         assets: AssetsService,
-        uid: string,
-        z: number,
         x: number, 
         y: number, 
-        width: number,
-        height: number,
         angle: number,
-        speed: number,
     ) {
-        super(assets, ExplosionPathName, uid, z, x, y, width, height, speed);
+        super(assets, ExplosionPathName, utils.uId(), 80, x, y, 120, 120, 0);
 
         this._events = events;
         this.angle = angle;        
