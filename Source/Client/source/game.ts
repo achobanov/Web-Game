@@ -40,17 +40,16 @@ export default class Game {
     }
 
     async menu() {
-        const setupObject = await this._setup.proofOfConcept();
-        const menu = new Menu(this._events);
+        const menu = new Menu(this._events, this._start);
 0
-        this._objects = this._objects.concat([ ...setupObject, ...menu.objects ]);
+        this._objects = this._objects.concat(menu.objects);
         
         this._previousFrameTime = Date.now();
         this._loop();
     }
 
-    start = async () : Promise<void> => {
-
+    _start = async () : Promise<void> => {
+        this._objects = this._objects.concat(...await this._setup.proofOfConcept());
     }
 
     _loop = () : void => {
