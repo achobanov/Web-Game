@@ -10,9 +10,9 @@ export default class Shape implements IGameObject {
     x: number;    
     y: number;
     angle: number;
-    fill?: string;
+    fill: string;
     
-    constructor(id: string, x: number, y: number, angle: number, fill?: string) {
+    constructor(id: string, x: number, y: number, angle: number, fill: string) {
         this.id = id;
         this.x = x;
         this.y = y;
