@@ -1,6 +1,6 @@
 import { IRectangle } from "../../services/canvas-service";
 
-export default class GameObject implements IRectangle {
+export default class Rectangle implements IRectangle {
     x: number;
     y: number;
     width: number;
