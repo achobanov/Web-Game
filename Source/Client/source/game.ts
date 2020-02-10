@@ -7,8 +7,6 @@ import AddEntityEvent from "./events/add-entity-event";
 import RemoveEntityEvent from "./events/remove-entity-event";
 import CanvasService from "./services/canvas-service";
 import IGameObject from "./objects/game-object";
-import Rectangle from "./objects/shapes/rectangle";
-import utils from "./utils/utils";
 import Menu from "./menu";
 
 export default class Game {
@@ -42,7 +40,7 @@ export default class Game {
     async menu() {
         const menu = new Menu(this._events, this._start);
 0
-        this._objects = this._objects.concat(menu.objects);
+        this._objects = this._objects.concat(menu, ...menu.objects);
         
         this._previousFrameTime = Date.now();
         this._loop();
