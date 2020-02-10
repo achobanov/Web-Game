@@ -38,10 +38,6 @@ export default class Soldier extends Entity {
             this._changeFrame();
     }
 
-    _move(dT: number) {
-        super._move(dT);
-    }
-
     _handleMouseClick = (event: MouseClickEvent) : void => {
         if (event.button === MouseButton.Left) {
             this._fire(event.cursor);
