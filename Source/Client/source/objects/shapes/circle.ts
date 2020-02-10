@@ -1,5 +1,4 @@
 import Shape, { IShape } from "./shape";
-import { ICoordinates } from "../../services/canvas-service";
 
 export interface ICircle extends IShape {
     radius: number;
