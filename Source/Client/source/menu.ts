@@ -4,7 +4,7 @@ import utils from "./utils/utils";
 import AddObjectEvent from "./events/add-object-event";
 import TextObject from "./objects/shapes/text-object";
 import IGameObject from "./objects/game-object";
-import RemoveEntityEvent from "./events/remove-object-event";
+import RemoveObjectEvent from "./events/remove-object-event";
 import MouseMoveEvent from "./events/mouse-move-event";
 import MouseClickEvent from "./events/mouse-click-event";
 import { MouseButton } from "./enums/mouse-button";
@@ -97,7 +97,7 @@ export default class Menu implements IGameObject {
         if (this._isButtonHovered && !wasButtonHovered)
             this._createIndicator(event.cursor);
         else if (!this._isButtonHovered && wasButtonHovered)
-            this._events.publish(new RemoveEntityEvent(this._hoverIndicatorId));        
+            this._events.publish(new RemoveObjectEvent(this._hoverIndicatorId));        
     }
 
     _onMouseClick = (event: MouseClickEvent) =>
@@ -111,8 +111,8 @@ export default class Menu implements IGameObject {
     _startClosing() { this._isClosing = true; }
     
     _close() {
-        this._events.publish(new RemoveEntityEvent(this.id));
-        this.objects.forEach(object => this._events.publish(new RemoveEntityEvent(object.id)));
+        this._events.publish(new RemoveObjectEvent(this.id));
+        this.objects.forEach(object => this._events.publish(new RemoveObjectEvent(object.id)));
         this._startGame();
     }
 

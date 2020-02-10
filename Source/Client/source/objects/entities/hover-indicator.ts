@@ -1,7 +1,7 @@
 import Circle from "../shapes/circle";
 import EventsService from "../../services/events-service";
 import MouseMoveEvent from "../../events/mouse-move-event";
-import RemoveEntityEvent from "../../events/remove-object-event";
+import RemoveObjectEvent from "../../events/remove-object-event";
 import MouseClickEvent from "../../events/mouse-click-event";
 import { MouseButton } from "../../enums/mouse-button";
 
@@ -25,6 +25,6 @@ export default class HoverIndicator extends Circle {
 
     _handleClick = ({ button }: MouseClickEvent) => {
         if (button === MouseButton.Left)
-            this._events.publish(new RemoveEntityEvent(this.id));
+            this._events.publish(new RemoveObjectEvent(this.id));
     }
 }

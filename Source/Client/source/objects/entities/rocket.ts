@@ -5,7 +5,7 @@ import AssetsService from "../../services/assets-service";
 import Explosion from "./explosion";
 import utils from "../../utils/utils";
 import AddObjectEvent from "../../events/add-object-event";
-import RemoveEntityEvent from "../../events/remove-object-event";
+import RemoveObjectEvent from "../../events/remove-object-event";
 
 export default class Rocket extends Entity {
     _events: EventsService;
@@ -62,6 +62,6 @@ export default class Rocket extends Entity {
             speed);
 
         this._events.publish(new AddObjectEvent(explosion));
-        this._events.publish(new RemoveEntityEvent(this.id));
+        this._events.publish(new RemoveObjectEvent(this.id));
     }
 }
