@@ -19,8 +19,9 @@ export default class Circle extends Shape implements ICircle {
         radius: number,
         fill?: string,
         stroke?: string,
+        alpha?: number,
     ) {
-        super(id, x, y, 0, fill, stroke);
+        super(id, x, y, 0, fill, stroke, alpha);
 
         this.radius = radius;
         this.startAngle = 0;

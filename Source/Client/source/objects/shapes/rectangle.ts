@@ -16,9 +16,10 @@ export default class Rectangle extends Shape implements IRectangle {
         height: number,
         angle: number,
         fill?: string,
-        stroke?: string
+        stroke?: string,
+        alpha?: number,
     ) {
-        super(id, x, y, angle, fill, stroke);
+        super(id, x, y, angle, fill, stroke, alpha);
 
         this.width = width;
         this.height = height;
