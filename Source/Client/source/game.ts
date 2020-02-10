@@ -26,7 +26,7 @@ export default class Game {
     _previousFrameTime: number = 0;
     _objects: IGameObject[];
 
-    constructor(container: Node, settings: ILaunchSettings) {
+    constructor(container: HTMLElement, settings: ILaunchSettings) {
         const images = new AssetsService(settings.assets);
         
         this._events = new EventsService();
@@ -45,7 +45,7 @@ export default class Game {
 
     async menu() {
         const menu = new Menu(this._events, this._start);
-0
+
         this._objects = this._objects.concat(menu, ...menu.objects);
         
         this._previousFrameTime = Date.now();
