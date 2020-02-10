@@ -31,7 +31,7 @@ export default class Game {
         
         this._events = new EventsService();
         this._input = new InputService(container, this._events);
-        this._canvas = new CanvasService(container as HTMLCanvasElement, images);
+        this._canvas = new CanvasService(container as HTMLCanvasElement, images, settings.defaultFill);
         this._setup = new SetupService(images, this._events);
 
         this._objects = [];
