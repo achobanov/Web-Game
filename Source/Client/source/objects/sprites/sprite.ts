@@ -1,15 +1,26 @@
-import Rectangle from "../shapes/rectangle";
-import { ISprite, IRectangle, IShape } from "../../services/canvas-service";
+import { IRectangle, IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
 
-export default class Sprite extends Rectangle implements ISprite {
+export interface ISprite extends IRectangle { 
+    uid: string;
+    assetKey: string;
+    frame: IRectangle;
+    angle: number;
+    effects?: IShape[];
+}
+
+export default class Sprite implements ISprite {
     _assets: AssetsService
 
     _frames: IRectangle[];
     _frameIndex: number;
     _frameRate: number;
     _timeOnFrame: number;
-        
+    
+    x: number;
+    y: number;
+    width: number;
+    height: number;
     uid: string;    
     assetKey: string;
     frame: IRectangle;
@@ -26,8 +37,6 @@ export default class Sprite extends Rectangle implements ISprite {
         height: number,
         angle: number,
     ) {
-        super(x, y, width, height);
-
         this._assets = assets;
         const asset = this._assets.get(assetKey);
         if (!asset) throw new Error(`Asset with key ${assetKey} not found.`);
@@ -38,6 +47,10 @@ export default class Sprite extends Rectangle implements ISprite {
         this._timeOnFrame = 0;
         this.frame = this._frames[this._frameIndex];
 
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         this.assetKey = assetKey;
         this.uid = uid;
         this.angle = angle;
