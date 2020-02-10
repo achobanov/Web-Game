@@ -15,17 +15,19 @@ export interface ICoordinates {
 export default class CanvasService {
     _context : CanvasRenderingContext2D;
     _assetsService : AssetsService;
-    _clear : () => void;
+    _width: number;
+    _height: number;
     
-    constructor(canvas: HTMLCanvasElement, ImagesService: AssetsService) {
+    constructor(canvas: HTMLCanvasElement, ImagesService: AssetsService, defaultFill: string) {
         const context = canvas.getContext('2d');
         
         if (!context) throw new Error('Context not found!');
 
         this._context = context;
         this._assetsService = ImagesService;
-
-        this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
+        this._height = canvas.height;
+        this._width = canvas.width;
+        this._context.fillStyle = defaultFill;
     }
 
     render = (object: IGameObject) : void => {
@@ -121,5 +123,5 @@ export default class CanvasService {
     }
 
     clear = () : void =>
-        this._clear();
+        this._context.fillRect(0, 0, this._width, this._height);
 }
