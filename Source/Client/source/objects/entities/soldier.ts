@@ -20,12 +20,9 @@ export default class Soldier extends Entity {
         uid: string,
         z: number,
         x: number, 
-        y: number, 
-        width: number,
-        height: number,
-        speed: number
+        y: number
     ) {
-        super(assets, SoldierImagePath, uid, z, x, y, width, height, speed);
+        super(assets, SoldierImagePath, uid, z, x, y, 55, 55, 150);
 
         this._events = events;
 
