@@ -38,7 +38,7 @@ export default class Soldier extends Entity {
                 this.angle,
                 '#c96c6c'));
 
-        this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
+        this._events.subscribe(MouseClickEvent.Key, this._handleMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);
     }
 
@@ -54,7 +54,7 @@ export default class Soldier extends Entity {
         super._move(dT);
     }
 
-    _onMouseClick = (event: MouseClickEvent) : void => {
+    _handleMouseClick = (event: MouseClickEvent) : void => {
         if (event.button === MouseButton.Left) {
             this._fire(event.cursor);
         } else {1

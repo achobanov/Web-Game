@@ -57,8 +57,8 @@ export default class Menu implements IGameObject {
             this._createText(),
         ];
 
-        this._events.subscribe(MouseMoveEvent.Key, this._onMouseMove);
-        this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
+        this._events.subscribe(MouseMoveEvent.Key, this._handleMouseMove);
+        this._events.subscribe(MouseClickEvent.Key, this._handleMouseClick);
     }
 
     update(dT: number) {
@@ -85,7 +85,7 @@ export default class Menu implements IGameObject {
         }
     }
     
-    _onMouseMove = (event: MouseMoveEvent) => {
+    _handleMouseMove = (event: MouseMoveEvent) => {
         const wasButtonHovered = this._isButtonHovered;
         
         this._isButtonHovered = 
@@ -100,7 +100,7 @@ export default class Menu implements IGameObject {
             this._events.publish(new RemoveObjectEvent(this._hoverIndicatorId));        
     }
 
-    _onMouseClick = (event: MouseClickEvent) =>
+    _handleMouseClick = (event: MouseClickEvent) =>
         this._isButtonHovered && event.button === MouseButton.Left && this._startClosing();
 
     _createIndicator({ x, y }: ICoordinates) {

@@ -14,16 +14,16 @@ export default class HoverIndicator extends Circle {
         this._events = events;
         this.alpha = 0.5;
 
-        this._events.subscribe(MouseMoveEvent.Key, this._handleMove);
-        this._events.subscribe(MouseClickEvent.Key, this._handleClick);
+        this._events.subscribe(MouseMoveEvent.Key, this._handleMouseMove);
+        this._events.subscribe(MouseClickEvent.Key, this._handleMouseClick);
     }
 
-    _handleMove = ({ cursor }: MouseMoveEvent) => {
+    _handleMouseMove = ({ cursor }: MouseMoveEvent) => {
         const { x, y } = cursor;
         this._offsetCenter(x, y);
     }
 
-    _handleClick = ({ button }: MouseClickEvent) => {
+    _handleMouseClick = ({ button }: MouseClickEvent) => {
         if (button === MouseButton.Left)
             this._events.publish(new RemoveObjectEvent(this.id));
     }
