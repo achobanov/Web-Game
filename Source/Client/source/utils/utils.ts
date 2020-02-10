@@ -1,3 +1,5 @@
+// Source: https://dev.to/krumpet/generic-type-guard-in-typescript-258l
+
 interface typeMap { // for mapping from strings to types
     string: string;
     number: number;
