@@ -15,7 +15,10 @@ export default class InputService {
 
         container.addEventListener('mousedown', event => {
             const mouseEvent = event as MouseEvent;
-            const mouseClick = new MouseClickEvent(mouseEvent.which)
+            const mouseClick = new MouseClickEvent(mouseEvent.which, {
+                x: mouseEvent.clientX,
+                y: mouseEvent.clientY,
+            });
             
             this.eventsService.publish(mouseClick);
         })

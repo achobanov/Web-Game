@@ -22,8 +22,8 @@ export default class AssetsService {
                 image.onload = () => {
                     const asset = this._createAsset(image, assetInfo);
                     this.assets[asset.path] = asset;
+                    resolve();
                 }
-                resolve();
             });
         });
 

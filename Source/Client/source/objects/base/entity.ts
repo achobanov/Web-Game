@@ -1,5 +1,6 @@
 import GameObject from "./game-object";
-import { ISprite, IRenderable } from "../../services/canvas-service";
+import { ISprite, IRenderable, ITriangle } from "../../services/canvas-service";
+import AssetsService from "../../services/assets-service";
 
 export interface IEntity extends ISprite {
     z: number,
@@ -7,17 +8,25 @@ export interface IEntity extends ISprite {
 }
 
 export default class Entity extends GameObject implements IEntity {
+    _assets: AssetsService;
+
     _speed: number;
     _frames: IRenderable[];
     _frameIndex: number;
     _frameRate: number;
     _timeOnFrame: number;
+    _desination: { x: number, y: number };
+    _isMoving: boolean;
     
     uid: string;
     z: number;
     frame: IRenderable;
+    angle: number;
+    effects: ITriangle[];
     
     constructor(
+        assets: AssetsService,
+        assetKey: string,
         uid: string,
         z: number,
         x: number, 
@@ -25,35 +34,92 @@ export default class Entity extends GameObject implements IEntity {
         width: number,
         height: number,
         speed: number,
-        imageKey: string,
-        frames: IRenderable[],
-        frameRate: number,
-        frameIndex?: number,
     ) {
-        super(x, y, width, height, imageKey);
+        super(x, y, width, height, assetKey);
         
+        this._assets = assets;
+
+        const asset = this._assets.get(assetKey);
+        if (!asset) throw new Error(`Asset with key ${assetKey} not found.`);
+
         this._speed = speed;
-        this._frames = frames;
-        this._frameIndex = frameIndex ?? 0;
-        this._frameRate = frameRate;
+        this._frames = asset.frames;
+        this._frameRate = asset.frameRate;
+        this._frameIndex = 0;
         this._timeOnFrame = 0;
-        
+        this._desination = { x ,y };
+        this._isMoving = false;
+
         this.uid = uid;
         this.z = z;
         this.frame = this._frames[this._frameIndex];
+        this.angle = 0;
+        this.effects = [];
     }
         
-    update = (dT: number) : void => {
-        throw new Error('"IEntity.update" must be overriden!');
+    update(dT: number) : void {
+        if (this._shouldMove())
+            this._move(dT);
+
+        if (this._shouldChangeFrame(dT))
+            this._changeFrame();
     }
 
-    _changeFrame = (dT: number, index?: number) : void => {
-        var isTimeToUpdate = this._timeOnFrame + dT >= 1 / this._frameRate;
-        if (!isTimeToUpdate) {
+    _shouldMove() { return this._isMoving; }
+
+    _shouldChangeFrame(dT: number) {
+        if (this._timeOnFrame + dT >= 1 / this._frameRate)
+            return true;
+        else {
             this._timeOnFrame += dT;
-            return;
+            return false;
+        }
+    }
+    
+    _move(dT: number) {
+        const distance = this._speed * dT;
+
+        const xRemaining = Math.abs(this.x - this._desination.x);
+        const yRemaining = Math.abs(this.y - this._desination.y);
+        let xDistance, yDistance = 0;
+        if (xRemaining == yRemaining) {
+            xDistance = distance;
+            yDistance = distance;
+        } else if (xRemaining > yRemaining)
+        {
+            xDistance = distance;
+            yDistance = yRemaining / xRemaining * distance;
+        } else {
+            xDistance = xRemaining / yRemaining * distance;
+            yDistance = distance;
         }
 
+        this.x = this._updateLinear(this.x, xDistance, this._desination.x);
+        this.y = this._updateLinear(this.y, yDistance, this._desination.y);
+        
+        if (this._desination.x === this.x && this._desination.y === this.y) {
+            this._stopMoving();
+        }
+    }
+
+    _updateLinear(current: number, distance: number, destination?: number) : number {
+        if (!destination) return current + distance;
+
+        return destination > current
+            ? Math.min(current + distance, destination)
+            : Math.max(current - distance, destination);
+    }
+
+    _startMoving({ x, y }: { x: number, y: number}) {
+        this._desination = { x, y };
+        this._isMoving = true;
+    }
+
+    _stopMoving() {
+        this._isMoving = false;
+    }
+
+    _changeFrame(index?: number) : void {
         if (!index) {
             if (this._frameIndex === this._frames.length - 1)
                 this._frameIndex = 0;
@@ -71,7 +137,7 @@ export default class Entity extends GameObject implements IEntity {
         this._setFrame();
     }
 
-    _setFrame = () : void => {
+    _setFrame() : void {
         this._timeOnFrame = 0;
         this.frame = this._frames[this._frameIndex];
     }

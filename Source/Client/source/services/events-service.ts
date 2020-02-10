@@ -1,9 +1,11 @@
+import { IEntity } from "../objects/base/entity";
+
 export interface IEvent {
     key: string,
 }
 
 export interface IEventHandler {
-    (event: IEvent) : void;
+    (event: any) : void;
 }
 
 export default class EventsService {

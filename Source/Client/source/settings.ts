@@ -1,4 +1,6 @@
-import Sniper from '../assets/Sniper.png';
+import Soldier from '../assets/soldier.png';
+import Rocket from '../assets/rocket.png';
+import Explosion from '../assets/explosion.png';
 
 export interface IAssetInfo {
     path: string,
@@ -14,10 +16,20 @@ export interface ILaunchSettings {
 var launchSettings : ILaunchSettings = {
     assets: [ 
         {
-            path: Sniper,
+            path: Soldier,
             framesCount: 8,
-            frameRate: 6
-        }
+            frameRate: 10,
+        },
+        {
+            path: Rocket,
+            framesCount: 4,
+            frameRate: 25,
+        },
+        {
+            path: Explosion,
+            framesCount: 40,
+            frameRate: 45,
+        },
     ],
     setupKey: 'proofOfConcept',
 };

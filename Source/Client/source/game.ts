@@ -5,6 +5,8 @@ import EventsService from "./services/events-service";
 import CanvasService from "./services/canvas-service";
 import { IEntity } from "./objects/base/entity";
 import SetupService from "./services/setup-service";
+import AddEntityEvent from "./events/add-entity-event";
+import RemoveEntityEvent from "./events/remove-entity-event";
 
 export default class Game {
     _cyclesPerSecond: number;
@@ -29,6 +31,9 @@ export default class Game {
         this._entities = [];
         this._cyclesPerSecond = 0;
         this._passedSeconds = 0;
+
+        this._events.subscribe(AddEntityEvent.Key, this._addEntity);
+        this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity); 
     }
 
     start = async () : Promise<void> => {
@@ -56,5 +61,13 @@ export default class Game {
     _render = () => {
         this._canvas.clear();
         this._entities.forEach(x => this._canvas.render(x));
+    }
+
+    _addEntity = ({ entity }: AddEntityEvent) => {
+        this._entities.push(entity);
+    }
+
+    _removeEntity = ({ id }: RemoveEntityEvent) => {
+        this._entities = this._entities.filter(x => x.uid !== id);
     }
 }
