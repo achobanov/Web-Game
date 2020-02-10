@@ -1,6 +1,6 @@
 import AssetsService from "./assets-service";
 import utils from "../utils/utils";
-import Sprite, { ISprite } from "../objects/sprites/sprite";
+import Sprite, { ISprite } from "../objects/entities/sprite";
 import Rectangle from "../objects/shapes/rectangle";
 import Triangle from "../objects/shapes/triangle";
 import Circle from "../objects/shapes/circle";

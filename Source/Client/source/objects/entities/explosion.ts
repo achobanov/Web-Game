@@ -1,5 +1,5 @@
 import ExplosionPathName from "../../../assets/explosion.png";
-import Entity from "../sprites/entity";
+import Entity from "./entity";
 import EventsService from "../../services/events-service";
 import AssetsService from "../../services/assets-service";
 import RemoveEntityEvent from "../../events/remove-entity-event";
