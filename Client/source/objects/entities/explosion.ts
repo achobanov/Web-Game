@@ -2,24 +2,14 @@ import ExplosionPathName from "../../../assets/explosion.png";
 import Entity from "./entity";
 import EventsService from "../../services/events-service";
 import AssetsService from "../../services/assets-service";
-import RemoveEntityEvent from "../../events/remove-entity-event";
+import RemoveObjectEvent from "../../events/remove-object-event";
+import utils from "../../utils/utils";
 
 export default class Explosion extends Entity {
     _events: EventsService;
 
-    constructor(
-        events: EventsService,
-        assets: AssetsService,
-        uid: string,
-        z: number,
-        x: number, 
-        y: number, 
-        width: number,
-        height: number,
-        angle: number,
-        speed: number,
-    ) {
-        super(assets, ExplosionPathName, uid, z, x, y, width, height, speed);
+    constructor(events: EventsService, assets: AssetsService, x: number, y: number, angle: number) {
+        super(assets, ExplosionPathName, utils.uId(), 80, x, y, 120, 120, 0);
 
         this._events = events;
         this.angle = angle;        
@@ -35,6 +25,6 @@ export default class Explosion extends Entity {
     _hasExploded() { return this._frameIndex === this._frames.length - 1 }
 
     _end() {
-        this._events.publish(new RemoveEntityEvent(this.id));
+        this._events.publish(new RemoveObjectEvent(this.id));
     }
 }

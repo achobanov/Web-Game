@@ -1,6 +1,5 @@
 import AssetsService from "../../services/assets-service";
 import Sprite, { ISprite } from "./sprite";
-import { IShape } from "../shapes/shape";
 import Triangle from "../shapes/triangle";
 
 export interface IEntity extends ISprite {

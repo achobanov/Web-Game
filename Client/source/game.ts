@@ -3,8 +3,8 @@ import { ILaunchSettings } from "./settings";
 import InputService from "./services/input-service";
 import EventsService from "./services/events-service";
 import SetupService from "./services/setup-service";
-import AddEntityEvent from "./events/add-entity-event";
-import RemoveEntityEvent from "./events/remove-entity-event";
+import AddObjectEvent from "./events/add-object-event";
+import RemoveObjectEvent from "./events/remove-object-event";
 import CanvasService from "./services/canvas-service";
 import IGameObject from "./objects/game-object";
 import Menu from "./menu";
@@ -38,8 +38,8 @@ export default class Game {
         this._cyclesPerSecond = 0;
         this._passedSeconds = 0;
 
-        this._events.subscribe(AddEntityEvent.Key, this._addEntity);
-        this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity);
+        this._events.subscribe(AddObjectEvent.Key, this._addEntity);
+        this._events.subscribe(RemoveObjectEvent.Key, this._removeEntity);
         this._events.subscribe(MouseClickEvent.Key, this._indicateRightClick);
     }
 
@@ -75,11 +75,11 @@ export default class Game {
         this._objects.forEach(x => this._canvas.render(x));
     }
 
-    _addEntity = ({ entity }: AddEntityEvent) => {
+    _addEntity = ({ object: entity }: AddObjectEvent) => {
         this._objects.push(entity);
     }
 
-    _removeEntity = ({ id }: RemoveEntityEvent) => {
+    _removeEntity = ({ id }: RemoveObjectEvent) => {
         this._objects = this._objects.filter(x => x.id !== id);
     }
 

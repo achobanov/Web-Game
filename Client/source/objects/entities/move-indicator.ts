@@ -1,6 +1,6 @@
 import Circle from "../shapes/circle";
 import EventsService from "../../services/events-service";
-import RemoveEntityEvent from "../../events/remove-entity-event";
+import RemoveObjectEvent from "../../events/remove-object-event";
 
 export default class MoveIndicator extends Circle {
     _events: EventsService;
@@ -29,7 +29,7 @@ export default class MoveIndicator extends Circle {
     update(dT: number) {
         this._passedTime += dT;
         if (this._passedTime >= this._activeDuration)
-            this._events.publish(new RemoveEntityEvent(this.id));
+            this._events.publish(new RemoveObjectEvent(this.id));
 
         this.radius += this._frameRate * dT;
         if (this.alpha)

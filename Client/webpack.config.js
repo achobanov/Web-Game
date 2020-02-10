@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './source/app.ts',
+  entry: './app.ts',
   mode: 'production',
   output: {
     filename: 'vendor.js',
@@ -25,7 +25,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
             name: 'assets/[name].[ext]',
-            outputPath: '../images'
+            outputPath: '../'
         }
       },
     ]

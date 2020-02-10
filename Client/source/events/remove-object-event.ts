@@ -1,9 +1,9 @@
 import { IEvent } from "../services/events-service";
 
-export default class RemoveEntityEvent implements IEvent {
-    static Key = 'remove-entity';
+export default class RemoveObjectEvent implements IEvent {
+    static Key = 'remove-object';
     
-    key = RemoveEntityEvent.Key;
+    key = RemoveObjectEvent.Key;
     id: string;
 
     constructor(id: string) {

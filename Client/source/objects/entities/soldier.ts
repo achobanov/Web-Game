@@ -8,37 +8,22 @@ import MouseMoveEvent from "../../events/mouse-move-event";
 import Rocket from "./rocket";
 import utils from "../../utils/utils";
 import { ICoordinates } from "../../services/canvas-service";
-import AddEntityEvent from "../../events/add-entity-event";
+import AddObjectEvent from "../../events/add-object-event";
 import Triangle from "../shapes/triangle";
 
 export default class Soldier extends Entity {
     _events: EventsService;
+    _rotationOffset: number;
 
-    constructor(
-        events: EventsService,
-        assets: AssetsService,
-        uid: string,
-        z: number,
-        x: number, 
-        y: number, 
-        width: number,
-        height: number,
-        speed: number
-    ) {
-        super(assets, SoldierImagePath, uid, z, x, y, width, height, speed);
+    constructor(events: EventsService, assets: AssetsService, x: number, y: number) {
+        super(assets, SoldierImagePath, utils.uId(), 100, x, y, 55, 55, 150);
 
         this._events = events;
+        this._rotationOffset = 1.595;
 
-        this.effects.push(
-            new Triangle(
-                utils.uId(),
-                { x: 13, y: 5 },
-                { x: 13.7, y: 5 },
-                { x: 13.35, y: -505 },
-                this.angle,
-                '#c96c6c'));
-
-        this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
+        this.effects.push(this._createLaserPointer());
+            
+        this._events.subscribe(MouseClickEvent.Key, this._handleMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);
     }
 
@@ -50,11 +35,7 @@ export default class Soldier extends Entity {
             this._changeFrame();
     }
 
-    _move(dT: number) {
-        super._move(dT);
-    }
-
-    _onMouseClick = (event: MouseClickEvent) : void => {
+    _handleMouseClick = (event: MouseClickEvent) : void => {
         if (event.button === MouseButton.Left) {
             this._fire(event.cursor);
         } else {1
@@ -63,34 +44,26 @@ export default class Soldier extends Entity {
     }
 
     _fire({ x: destinationX, y: destinationY }: ICoordinates) {
-        const z = 0;
-        const width = 20;
-        const height = 45;
-        const speed = 550;
-
-        const rocket = new Rocket(
-            this._events, 
-            this._assets, 
-            utils.uId(), 
-            z, 
-            this.x, 
-            this.y, 
-            width, 
-            height, 
-            this.angle, 
-            speed, 
-            destinationX, 
-            destinationY);
-
-        this._events.publish(new AddEntityEvent(rocket));
+        const rocket = new Rocket(this._events, this._assets, this.x, this.y, this.angle, destinationX, destinationY);
+        this._events.publish(new AddObjectEvent(rocket));
     }
 
     _rotate = (event: MouseMoveEvent) => {
         const dX = event.cursor.x - this.x;
         const dY = event.cursor.y - this.y;
-        this.angle = Math.atan2(dY, dX) + 1.595; // fixes :D
+        this.angle = Math.atan2(dY, dX) + this._rotationOffset;
     }
 
     _shouldChangeFrame = (dT: number) : boolean =>
         this._isMoving && super._shouldChangeFrame(dT);
+
+    _createLaserPointer() : Triangle {
+        return new Triangle(
+            utils .uId(),
+            { x: 13, y: 5 },
+            { x: 13.7, y: 5 },
+            { x: 13.35, y: -505 },
+            this.angle,
+            '#c96c6c');
+    }
 }

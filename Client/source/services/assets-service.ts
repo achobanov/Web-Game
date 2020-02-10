@@ -12,25 +12,7 @@ export default class AssetsService {
 
     constructor(assets: IAssetInfo[]) {
         this.assets = {};
-
-        
-        const requests = assets.map(assetInfo => {
-            const image = new Image();
-            image.src = assetInfo.path
-
-            return new Promise((resolve, _) => {
-                image.onload = () => {
-                    const asset = this._createAsset(image, assetInfo);
-                    this.assets[asset.path] = asset;
-                    resolve();
-                }
-            });
-        });
-
-        this.haveLoaded = new Promise(async (resolve, _) => {
-            await Promise.all(requests);
-            resolve();            
-        });
+        this.haveLoaded = this._load(assets);
     }
 
     get = (key: string) : IAsset | undefined => 
@@ -75,5 +57,25 @@ export default class AssetsService {
         }
 
         return frames;
+    }
+
+    _load = (assets: IAssetInfo[]) : Promise<void> => {
+        const requests = assets.map(assetInfo => {
+            const image = new Image();
+            image.src = assetInfo.path
+
+            return new Promise((resolve, _) => {
+                image.onload = () => {
+                    const asset = this._createAsset(image, assetInfo);
+                    this.assets[asset.path] = asset;
+                    resolve();
+                }
+            });
+        });
+
+        return new Promise(async (resolve, _) => {
+            await Promise.all(requests);
+            resolve();            
+        });
     }
 }

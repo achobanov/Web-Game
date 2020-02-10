@@ -10,7 +10,6 @@ export interface IAssetInfo {
 
 export interface ILaunchSettings {
     assets: IAssetInfo[];
-    setupKey: string,
     defaultFill: string,
 }
 
@@ -32,7 +31,6 @@ var launchSettings : ILaunchSettings = {
             frameRate: 45,
         },
     ],
-    setupKey: 'proofOfConcept',
     defaultFill: '#252729',
 };
 

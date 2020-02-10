@@ -1,7 +1,6 @@
 import AssetsService from "../../services/assets-service";
 import { IRectangle } from "../shapes/rectangle";
-import { IShape } from "../shapes/shape";
-import Triangle, { ITriangle } from "../shapes/triangle";
+import Triangle from "../shapes/triangle";
 
 export interface ISprite extends IRectangle { 
     assetKey: string;
@@ -25,7 +24,6 @@ export default class Sprite implements ISprite {
     assetKey: string;
     frame: IRectangle;
     angle: number;
-    Triangle?: ITriangle[];
 
     constructor(
         assets: AssetsService,
@@ -64,10 +62,10 @@ export default class Sprite implements ISprite {
     _shouldChangeFrame(dT: number) {
         if (this._timeOnFrame + dT >= 1 / this._frameRate)
             return true;
-        else {
+        else 
             this._timeOnFrame += dT;
-            return false;
-        }
+        
+        return false;
     }
     
     _changeFrame(index?: number) : void {
