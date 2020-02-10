@@ -20,7 +20,7 @@ export default class CanvasService {
     
     constructor(canvas: HTMLCanvasElement, ImagesService: AssetsService, defaultFill: string) {
         const context = canvas.getContext('2d');
-        
+
         if (!context) throw new Error('Context not found!');
 
         this._context = context;

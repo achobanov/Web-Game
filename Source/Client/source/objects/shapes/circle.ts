@@ -32,7 +32,7 @@ export default class Circle extends Shape implements ICircle {
     }
 
     _offsetCenter(x: number, y: number) {
-        const centerOffset = this.radius * 0.75;
+        const centerOffset = this.radius * 0.1;
         this.x = x - centerOffset;
         this.y = y - centerOffset;
     }

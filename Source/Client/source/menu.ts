@@ -85,25 +85,25 @@ export default class Menu implements IGameObject {
             this._close();
         }
     }
-
-    _createIndicator({ x, y }: ICoordinates) {
-        const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y, 10, 'yellow');
-        this._events.publish(new AddEntityEvent(indicator));
-    }
-
+    
     _onMouseMove = (event: MouseMoveEvent) => {
         const wasButtonHovered = this._isButtonHovered;
-
+        
         this._isButtonHovered = 
-            this._button.x < event.cursor.x
-            && this._button.x + this._button.width > event.cursor.x
-            && this._button.y < event.cursor.y
-            && this._button.y + this._button.height > event.cursor.y;
-
+        this._button.x < event.cursor.x
+        && this._button.x + this._button.width > event.cursor.x
+        && this._button.y < event.cursor.y
+        && this._button.y + this._button.height > event.cursor.y;
+        
         if (this._isButtonHovered && !wasButtonHovered)
-            this._createIndicator(event.cursor);
+        this._createIndicator(event.cursor);
         else if (!this._isButtonHovered && wasButtonHovered)
-            this._events.publish(new RemoveEntityEvent(this._hoverIndicatorId));        
+        this._events.publish(new RemoveEntityEvent(this._hoverIndicatorId));        
+    }
+
+    _createIndicator({ x, y }: ICoordinates) {
+        const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y, 10);
+        this._events.publish(new AddEntityEvent(indicator));
     }
 
     _onMouseClick = (event: MouseClickEvent) =>

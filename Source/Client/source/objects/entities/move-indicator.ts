@@ -18,12 +18,12 @@ export default class MoveIndicator extends Circle {
         fill?: string,
         stroke?: string,
     ) {
-        super(id, x - 7, y - 10, radius, fill, stroke, alpha);
+        super(id, x, y, radius, fill, stroke, alpha);
 
         this._events = events;
         this._activeDuration = 0.5;
         this._passedTime = 0;
-        this._frameRate = 30;
+        this._frameRate = 35;
     }
 
     update(dT: number) {
