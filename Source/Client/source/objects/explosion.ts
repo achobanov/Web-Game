@@ -16,11 +16,13 @@ export default class Explosion extends Entity {
         y: number, 
         width: number,
         height: number,
+        angle: number,
         speed: number,
     ) {
         super(assets, ExplosionPathName, uid, z, x, y, width, height, speed);
 
         this._events = events;
+        this.angle = angle;        
     }
 
     update(dT: number) : void {
