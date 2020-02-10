@@ -1,14 +1,13 @@
 import { IRectangle } from "../../services/canvas-service";
+import Shape from "./shape";
 
-export default class Rectangle implements IRectangle {
-    x: number;
-    y: number;
+export default class Rectangle extends Shape implements IRectangle {
     width: number;
     height: number;
 
     constructor(x: number, y: number, width: number, height: number) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+
         this.width = width;
         this.height = height;
     }
