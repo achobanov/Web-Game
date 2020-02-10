@@ -13,18 +13,13 @@ export default class Rocket extends Entity {
     constructor(
         events: EventsService,
         assets: AssetsService,
-        uid: string,
-        z: number,
         x: number, 
         y: number, 
-        width: number,
-        height: number,
         angle: number,
-        speed: number,
         destinationX: number,
         destinationY: number,
     ) {
-        super(assets, RocketImagePath, uid, z, x, y, width, height, speed);
+        super(assets, RocketImagePath, utils.uId(), 90, x, y, 20, 45, 550);
 
         this._events = events;
 

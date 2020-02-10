@@ -47,25 +47,7 @@ export default class Soldier extends Entity {
     }
 
     _fire({ x: destinationX, y: destinationY }: ICoordinates) {
-        const z = 0;
-        const width = 20;
-        const height = 45;
-        const speed = 550;
-
-        const rocket = new Rocket(
-            this._events, 
-            this._assets, 
-            utils.uId(), 
-            z, 
-            this.x, 
-            this.y, 
-            width, 
-            height, 
-            this.angle, 
-            speed, 
-            destinationX, 
-            destinationY);
-
+        const rocket = new Rocket(this._events, this._assets, this.x, this.y, this.angle, destinationX, destinationY);
         this._events.publish(new AddObjectEvent(rocket));
     }
 
