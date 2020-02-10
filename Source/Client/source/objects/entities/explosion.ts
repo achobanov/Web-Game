@@ -1,8 +1,8 @@
-import ExplosionPathName from "../../assets/explosion.png";
-import Entity from "./base/entity";
-import EventsService from "../services/events-service";
-import AssetsService from "../services/assets-service";
-import RemoveEntityEvent from "../events/remove-entity-event";
+import ExplosionPathName from "../../../assets/explosion.png";
+import Entity from "./entity";
+import EventsService from "../../services/events-service";
+import AssetsService from "../../services/assets-service";
+import RemoveEntityEvent from "../../events/remove-entity-event";
 
 export default class Explosion extends Entity {
     _events: EventsService;
@@ -35,6 +35,6 @@ export default class Explosion extends Entity {
     _hasExploded() { return this._frameIndex === this._frames.length - 1 }
 
     _end() {
-        this._events.publish(new RemoveEntityEvent(this.uid));
+        this._events.publish(new RemoveEntityEvent(this.id));
     }
 }

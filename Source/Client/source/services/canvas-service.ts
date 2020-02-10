@@ -1,31 +1,14 @@
 import AssetsService from "./assets-service";
+import utils from "../utils/utils";
+import Sprite, { ISprite } from "../objects/entities/sprite";
+import Rectangle from "../objects/shapes/rectangle";
+import Triangle from "../objects/shapes/triangle";
+import Circle from "../objects/shapes/circle";
+import IGameObject from "../objects/game-object";
 
 export interface ICoordinates {
     x: number;
-    y: number;
-}
-
-export interface IRenderable extends ICoordinates {
-    width: number;
-    height: number;
-}
-
-export interface IShape {
-    fill: string;
-}
-
-export interface ITriangle extends IShape {
-    point1: ICoordinates;
-    point2: ICoordinates;
-    point3: ICoordinates;
-}
-
-export interface ISprite extends IRenderable { 
-    uid: string;
-    imageKey: string;
-    frame: IRenderable;
-    angle: number;
-    effects?: ITriangle[];
+    y: number
 }
 
 export default class CanvasService {
@@ -44,14 +27,30 @@ export default class CanvasService {
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    render = (sprite: ISprite) : void =>
+    render = (object: IGameObject) : void =>
     {
-        const asset = this._assetsService.get(sprite.imageKey);
-        if (!asset) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
-
         this._context.save();
-        this._context.translate(sprite.x, sprite.y);
-        this._context.rotate(sprite.angle);
+        this._context.translate(object.x, object.y);
+        this._context.rotate(object.angle ?? 0);
+
+        if (utils.isOfType(object, Sprite))
+            this._renderSprite(object);
+        else if (utils.isOfType(object, Rectangle))
+            this._renderRectangle(object);
+        else if (utils.isOfType(object, Triangle))
+            this._renderTriangle(object);
+        else if (utils.isOfType(object, Circle))
+            this._renderCircle(object);
+        else
+            throw new Error('Unsupported shape.');
+
+        this._context.restore();
+    }
+
+
+    _renderSprite = (sprite: ISprite) => {
+        const asset = this._assetsService.get(sprite.assetKey);
+        if (!asset) throw new Error(`Image with key "${sprite.assetKey}" is not found.`);
 
         const xCenterOffset = -sprite.width / 2;
         const yCenterOffset = -sprite.width / 2;
@@ -70,19 +69,41 @@ export default class CanvasService {
 
         if (sprite.effects) {
             for (const effect of sprite.effects) {
-                this._context.fillStyle = effect.fill;
+                this._context.fillStyle = effect.fill ?? 'black';
                 this._context.beginPath();
-                this._context.moveTo(xCenterOffset + effect.point1.x, yCenterOffset + effect.point1.y);
+                this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
                 this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
                 this._context.lineTo(xCenterOffset + effect.point3.x, yCenterOffset + effect.point3.y);
                 this._context.closePath();
                 this._context.fill();
             }
         }
+    }
 
-        this._context.fillStyle = 'black';
+    _renderTriangle = (triangle: Triangle) => {
+        if (triangle.fill) {
+            this._context.fillStyle = triangle.fill;
+        }
+        
+        this._context.beginPath();
+        this._context.moveTo(0, 0);
+        this._context.lineTo(triangle.point2.x, triangle.point2.y);
+        this._context.lineTo(triangle.point3.x, triangle.point3.y);
+        this._context.closePath();
+        this._context.fill();
+    }
 
-        this._context.restore();
+    _renderCircle = (circle: Circle) => {
+        this._context.arc(0, 0, circle.radius, circle.startAngle, circle.endAngle);
+    }
+
+    _renderRectangle = (rectangle: Rectangle) => {
+        if (rectangle.fill) {
+            this._context.fillStyle = rectangle.fill;
+            this._context.fillRect(0, 0, rectangle.width, rectangle.height)
+        } else {
+            this._context.rect(0, 0, rectangle.width, rectangle.height);
+        }
     }
 
     clear = () : void =>

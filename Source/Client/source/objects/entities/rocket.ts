@@ -1,11 +1,11 @@
-import RocketImagePath from "../../assets/rocket.png";
-import Entity from "./base/entity";
-import EventsService from "../services/events-service";
-import AssetsService from "../services/assets-service";
+import RocketImagePath from "../../../assets/rocket.png";
+import Entity from "./entity";
+import EventsService from "../../services/events-service";
+import AssetsService from "../../services/assets-service";
 import Explosion from "./explosion";
-import utils from "../utils/utils";
-import AddEntityEvent from "../events/add-entity-event";
-import RemoveEntityEvent from "../events/remove-entity-event";
+import utils from "../../utils/utils";
+import AddEntityEvent from "../../events/add-entity-event";
+import RemoveEntityEvent from "../../events/remove-entity-event";
 
 export default class Rocket extends Entity {
     _events: EventsService;
@@ -62,6 +62,6 @@ export default class Rocket extends Entity {
             speed);
 
         this._events.publish(new AddEntityEvent(explosion));
-        this._events.publish(new RemoveEntityEvent(this.uid));
+        this._events.publish(new RemoveEntityEvent(this.id));
     }
 }

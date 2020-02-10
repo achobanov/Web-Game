@@ -1,33 +1,25 @@
-import GameObject from "./game-object";
-import { ISprite, IRenderable, ITriangle } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
+import Sprite, { ISprite } from "./sprite";
+import { IShape } from "../shapes/shape";
+import LaserPointer from "../shapes/laser-pointer";
 
 export interface IEntity extends ISprite {
     z: number,
     update: (dt : number) => void;
 }
 
-export default class Entity extends GameObject implements IEntity {
-    _assets: AssetsService;
-
+export default class Entity extends Sprite implements IEntity {
     _speed: number;
-    _frames: IRenderable[];
-    _frameIndex: number;
-    _frameRate: number;
-    _timeOnFrame: number;
     _desination: { x: number, y: number };
     _isMoving: boolean;
     
-    uid: string;
     z: number;
-    frame: IRenderable;
-    angle: number;
-    effects: ITriangle[];
+    effects: IShape[];
     
     constructor(
         assets: AssetsService,
         assetKey: string,
-        uid: string,
+        id: string,
         z: number,
         x: number, 
         y: number, 
@@ -35,24 +27,13 @@ export default class Entity extends GameObject implements IEntity {
         height: number,
         speed: number,
     ) {
-        super(x, y, width, height, assetKey);
-        
-        this._assets = assets;
-
-        const asset = this._assets.get(assetKey);
-        if (!asset) throw new Error(`Asset with key ${assetKey} not found.`);
+        super(assets, assetKey, id, x, y, width, height, 0);
 
         this._speed = speed;
-        this._frames = asset.frames;
-        this._frameRate = asset.frameRate;
-        this._frameIndex = 0;
-        this._timeOnFrame = 0;
         this._desination = { x ,y };
         this._isMoving = false;
 
-        this.uid = uid;
         this.z = z;
-        this.frame = this._frames[this._frameIndex];
         this.angle = 0;
         this.effects = [];
     }
@@ -61,20 +42,10 @@ export default class Entity extends GameObject implements IEntity {
         if (this._shouldMove())
             this._move(dT);
 
-        if (this._shouldChangeFrame(dT))
-            this._changeFrame();
+        super.update(dT);
     }
 
     _shouldMove() { return this._isMoving; }
-
-    _shouldChangeFrame(dT: number) {
-        if (this._timeOnFrame + dT >= 1 / this._frameRate)
-            return true;
-        else {
-            this._timeOnFrame += dT;
-            return false;
-        }
-    }
     
     _move(dT: number) {
         const distance = this._speed * dT;
@@ -117,28 +88,5 @@ export default class Entity extends GameObject implements IEntity {
 
     _stopMoving() {
         this._isMoving = false;
-    }
-
-    _changeFrame(index?: number) : void {
-        if (!index) {
-            if (this._frameIndex === this._frames.length - 1)
-                this._frameIndex = 0;
-            else 
-                this._frameIndex++;
-            
-            return this._setFrame();
-        }
-
-        if (!this._frames[index]) {
-            throw new RangeError('Index outside of frames array.');
-        }
-
-        this._frameIndex = index;
-        this._setFrame();
-    }
-
-    _setFrame() : void {
-        this._timeOnFrame = 0;
-        this.frame = this._frames[this._frameIndex];
     }
 }

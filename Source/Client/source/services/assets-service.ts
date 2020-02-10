@@ -1,8 +1,8 @@
-import { IRenderable } from "./canvas-service";
 import { IAssetInfo } from "../settings";
+import { IRectangle } from "../objects/shapes/rectangle";
 
 export interface IAsset extends IAssetInfo {
-    frames: IRenderable[];
+    frames: IRectangle[];
     image: HTMLImageElement;
 }
 
@@ -42,7 +42,7 @@ export default class AssetsService {
             image,
         });
 
-    _parseFrames = (image: HTMLImageElement, framesCount: number) : IRenderable[] => {
+    _parseFrames = (image: HTMLImageElement, framesCount: number) : IRectangle[] => {
         let frameWidth;
         let frameHeight;
 
@@ -59,7 +59,7 @@ export default class AssetsService {
         let frameX = 0;
         let frameY = 0;
         for (let i = 0; i < framesCount; i++) {
-            const frame : IRenderable = {
+            const frame : IRectangle = {
                 x: frameX,
                 y: frameY,
                 width: frameWidth,
