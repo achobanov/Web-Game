@@ -16,15 +16,13 @@ export default class Circle extends Shape implements ICircle {
         id: string, 
         x: number, 
         y: number, 
-        radius: number, 
-        startAngle: number, 
-        endAngle: number, 
-        fill: string
+        radius: number,
+        fill: string,
     ) {
         super(id, x, y, 0, fill);
 
         this.radius = radius;
-        this.startAngle = startAngle;
-        this.endAngle = endAngle;
+        this.startAngle = 0;
+        this.endAngle = 2 * Math.PI;
     }
 }
