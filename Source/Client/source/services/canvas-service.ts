@@ -29,6 +29,10 @@ export default class CanvasService {
 
     render = (object: IGameObject) : void =>
     {
+        this._context.save();
+        this._context.translate(object.x, object.y);
+        this._context.rotate(object.angle ?? 0);
+
         if (utils.isOfType(object, Sprite))
             this._renderSprite(object);
         else if (utils.isOfType(object, Rectangle))
@@ -40,17 +44,13 @@ export default class CanvasService {
         else
             throw new Error('Unsupported shape.');
 
-        this._context.fillStyle = 'black';
+        this._context.restore();
     }
 
 
     _renderSprite = (sprite: ISprite) => {
         const asset = this._assetsService.get(sprite.assetKey);
         if (!asset) throw new Error(`Image with key "${sprite.assetKey}" is not found.`);
-
-        this._context.save();
-        this._context.translate(sprite.x, sprite.y);
-        this._context.rotate(sprite.angle);
 
         const xCenterOffset = -sprite.width / 2;
         const yCenterOffset = -sprite.width / 2;
@@ -67,7 +67,17 @@ export default class CanvasService {
             sprite.height,
         );
 
-        this._context.restore();
+        if (sprite.effects) {
+            for (const effect of sprite.effects) {
+                this._context.fillStyle = effect.fill ?? 'black';
+                this._context.beginPath();
+                this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
+                this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
+                this._context.lineTo(xCenterOffset + effect.point3.x, yCenterOffset + effect.point3.y);
+                this._context.closePath();
+                this._context.fill();
+            }
+        }
     }
 
     _renderTriangle = (triangle: Triangle) => {
@@ -76,7 +86,7 @@ export default class CanvasService {
         }
         
         this._context.beginPath();
-        this._context.moveTo(triangle.x, triangle.y);
+        this._context.moveTo(0, 0);
         this._context.lineTo(triangle.point2.x, triangle.point2.y);
         this._context.lineTo(triangle.point3.x, triangle.point3.y);
         this._context.closePath();
@@ -84,15 +94,15 @@ export default class CanvasService {
     }
 
     _renderCircle = (circle: Circle) => {
-        this._context.arc(circle.x, circle.y, circle.radius, circle.startAngle, circle.endAngle);
+        this._context.arc(0, 0, circle.radius, circle.startAngle, circle.endAngle);
     }
 
     _renderRectangle = (rectangle: Rectangle) => {
         if (rectangle.fill) {
             this._context.fillStyle = rectangle.fill;
-            this._context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+            this._context.fillRect(0, 0, rectangle.width, rectangle.height)
         } else {
-            this._context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            this._context.rect(0, 0, rectangle.width, rectangle.height);
         }
     }
 

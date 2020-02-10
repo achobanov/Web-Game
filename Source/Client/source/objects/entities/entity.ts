@@ -1,6 +1,7 @@
 import AssetsService from "../../services/assets-service";
 import Sprite, { ISprite } from "./sprite";
 import { IShape } from "../shapes/shape";
+import LaserPointer from "../shapes/laser-pointer";
 
 export interface IEntity extends ISprite {
     z: number,

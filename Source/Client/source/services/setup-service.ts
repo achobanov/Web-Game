@@ -1,8 +1,8 @@
 import Soldier from "../objects/entities/soldier"
 import utils from "../utils/utils";
-import { IEntity } from "../objects/entities/entity";
 import AssetsService from "./assets-service";
 import EventsService from "./events-service";
+import IGameObject from "../objects/game-object";
 
 export default class SetupService {
     _assets: AssetsService;
@@ -13,7 +13,7 @@ export default class SetupService {
         this._events = events;
     }
     
-    proofOfConcept = async () : Promise<IEntity[]> => {
+    proofOfConcept = async () : Promise<IGameObject[]> => {
         await this._assets.haveLoaded;
 
         const id = utils.uId();

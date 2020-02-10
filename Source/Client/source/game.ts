@@ -6,7 +6,6 @@ import SetupService from "./services/setup-service";
 import AddEntityEvent from "./events/add-entity-event";
 import RemoveEntityEvent from "./events/remove-entity-event";
 import CanvasService from "./services/canvas-service";
-import { IShape } from "./objects/shapes/shape";
 import IGameObject from "./objects/game-object";
 
 export default class Game {
@@ -38,7 +37,8 @@ export default class Game {
     }
 
     start = async () : Promise<void> => {
-        this._objects = await this._setup.proofOfConcept();
+        const setupObject = await this._setup.proofOfConcept();
+        this._objects = this._objects.concat(...setupObject);
 
         this._previousFrameTime = Date.now();
 

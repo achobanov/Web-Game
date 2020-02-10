@@ -60,7 +60,6 @@ export default class AssetsService {
         let frameY = 0;
         for (let i = 0; i < framesCount; i++) {
             const frame : IRectangle = {
-                id: '',
                 x: frameX,
                 y: frameY,
                 width: frameWidth,

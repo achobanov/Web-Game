@@ -9,7 +9,7 @@ import Rocket from "./rocket";
 import utils from "../../utils/utils";
 import { ICoordinates } from "../../services/canvas-service";
 import AddEntityEvent from "../../events/add-entity-event";
-import { ITriangle } from "../shapes/triangle";
+import Triangle from "../shapes/triangle";
 
 export default class Soldier extends Entity {
     _events: EventsService;
@@ -29,13 +29,14 @@ export default class Soldier extends Entity {
 
         this._events = events;
 
-        // this.effects.push({
-        //     fill: '#c96c6c',
-        //     x: 13, 
-        //     y: 5,
-        //     point2: { x: 13.7, y: 5 },
-        //     point3: { x: 13.35, y: -505 },
-        // } as ITriangle);
+        this.effects.push(
+            new Triangle(
+                utils.uId(),
+                { x: 13, y: 5 },
+                { x: 13.7, y: 5 },
+                { x: 13.35, y: -505 },
+                this.angle,
+                '#c96c6c'));
 
         this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);
@@ -47,6 +48,10 @@ export default class Soldier extends Entity {
 
         if (this._shouldChangeFrame(dT))
             this._changeFrame();
+    }
+
+    _move(dT: number) {
+        super._move(dT);
     }
 
     _onMouseClick = (event: MouseClickEvent) : void => {

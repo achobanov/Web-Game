@@ -1,12 +1,12 @@
 import AssetsService from "../../services/assets-service";
 import { IRectangle } from "../shapes/rectangle";
 import { IShape } from "../shapes/shape";
+import Triangle, { ITriangle } from "../shapes/triangle";
 
 export interface ISprite extends IRectangle { 
     assetKey: string;
     frame: IRectangle;
-    angle: number;
-    effects?: IShape[];
+    effects?: Triangle[];
 }
 
 export default class Sprite implements ISprite {
@@ -25,7 +25,7 @@ export default class Sprite implements ISprite {
     assetKey: string;
     frame: IRectangle;
     angle: number;
-    effects?: IShape[];
+    Triangle?: ITriangle[];
 
     constructor(
         assets: AssetsService,

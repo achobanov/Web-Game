@@ -10,8 +10,15 @@ export default class Triangle extends Shape implements ITriangle {
     point2: ICoordinates;
     point3: ICoordinates;
 
-    constructor(id: string, point1: ICoordinates, point2: ICoordinates, point3: ICoordinates, fill?: string) {
-        super(id, point1.x, point1.y, fill)
+    constructor(
+        id: string,
+        point1: ICoordinates,
+        point2: ICoordinates,
+        point3: ICoordinates,
+        angle: number,
+        fill?: string
+    ) {
+        super(id, point1.x, point1.y, angle, fill);
 
         this.point2 = point2;
         this.point3 = point3;
