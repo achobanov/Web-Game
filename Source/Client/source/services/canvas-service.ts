@@ -1,4 +1,5 @@
 import AssetsService from "./assets-service";
+import utils from "../utils/utils";
 
 export interface ICoordinates {
     x: number;
@@ -17,8 +18,8 @@ export interface IFillable {
 export interface IShape extends ICoordinates {}
 
 export interface ICircle extends IShape {
-    radis: number;
-    startAndle: number;
+    radius: number;
+    startAngle: number;
     endAngle: number;
     antiClokwise?: boolean;
 }
