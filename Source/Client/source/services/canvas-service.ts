@@ -1,5 +1,9 @@
 import AssetsService from "./assets-service";
 import utils from "../utils/utils";
+import Sprite, { ISprite } from "../objects/sprites/sprite";
+import Rectangle from "../objects/shapes/rectangle";
+import Triangle from "../objects/shapes/triangle";
+import Circle from "../objects/shapes/circle";
 
 export interface ICoordinates {
     x: number;
@@ -9,10 +13,6 @@ export interface ICoordinates {
 export interface IRectangle extends IShape {
     width: number;
     height: number;
-}
-
-export interface IFillable {
-    fill: string;
 }
 
 export interface IShape extends ICoordinates {}
@@ -27,18 +27,6 @@ export interface ICircle extends IShape {
 export interface ITriangle extends IShape {
     point2: ICoordinates;
     point3: ICoordinates;
-}
-
-export interface IFillableTriangle extends ITriangle, IFillable { }
-
-export interface IFillableCircle extends ICircle, IFillable { }
-
-export interface ISprite extends IRectangle { 
-    uid: string;
-    assetKey: string;
-    frame: IRectangle;
-    angle: number;
-    effects?: IShape[];
 }
 
 export default class CanvasService {
@@ -57,8 +45,24 @@ export default class CanvasService {
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    render = (sprite: ISprite) : void =>
+    render = (shape: IShape) : void =>
     {
+        if (utils.isOfType(shape, Sprite))
+            this._renderSprite(shape);
+        else if (utils.isOfType(shape, Rectangle))
+            this._renderRectangle(shape);
+        else if (utils.isOfType(shape, Triangle))
+            this._renderTriangle(shape);
+        else if (utils.isOfType(shape, Circle))
+            this._renderCircle(shape);
+        else
+            throw new Error('Unsupported shape.');
+
+        this._context.fillStyle = 'black';
+    }
+
+
+    _renderSprite = (sprite: ISprite) => {
         const asset = this._assetsService.get(sprite.assetKey);
         if (!asset) throw new Error(`Image with key "${sprite.assetKey}" is not found.`);
 
@@ -81,21 +85,30 @@ export default class CanvasService {
             sprite.height,
         );
 
-        if (sprite.effects) {
-            for (const effect of sprite.effects) {
-                this._context.fillStyle = effect.fill;
-                this._context.beginPath();
-                this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
-                this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
-                this._context.lineTo(xCenterOffset + effect.point3.x, yCenterOffset + effect.point3.y);
-                this._context.closePath();
-                this._context.fill();
-            }
-        }
-
-        this._context.fillStyle = 'black';
-
         this._context.restore();
+    }
+
+    _renderTriangle = (triangle: Triangle) => {
+        this._context.fillStyle = triangle.fill;
+        this._context.beginPath();
+        this._context.moveTo(triangle.x, triangle.y);
+        this._context.lineTo(triangle.point2.x, triangle.point2.y);
+        this._context.lineTo(triangle.point3.x, triangle.point3.y);
+        this._context.closePath();
+        this._context.fill();
+    }
+
+    _renderCircle = (circle: Circle) => {
+        this._context.arc(circle.x, circle.y, circle.radius, circle.startAngle, circle.endAngle);
+    }
+
+    _renderRectangle = (rectangle: Rectangle) => {
+        if (rectangle.fill) {
+            this._context.fillStyle = rectangle.fill;
+            this._context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+        } else {
+            this._context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        }
     }
 
     clear = () : void =>
