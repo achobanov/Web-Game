@@ -44,7 +44,7 @@ export default class CanvasService {
         else if (utils.isOfType(object, TextObject))
             this._renderText(object);
         else
-            throw new Error('Unsupported shape.');
+            return;
 
         this._context.restore();
     }

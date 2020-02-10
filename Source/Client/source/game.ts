@@ -42,7 +42,7 @@ export default class Game {
     async menu() {
         const setupObject = await this._setup.proofOfConcept();
         const menu = new Menu(this._events);
-
+0
         this._objects = this._objects.concat([ ...setupObject, ...menu.objects ]);
         
         this._previousFrameTime = Date.now();
