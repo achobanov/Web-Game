@@ -1,5 +1,3 @@
-import { IEntity } from "../objects/entities/entity";
-
 export interface IEvent {
     key: string,
 }

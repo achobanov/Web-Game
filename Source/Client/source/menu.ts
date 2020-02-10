@@ -1,5 +1,5 @@
 import EventsService from "./services/events-service";
-import Rectangle, { IRectangle } from "./objects/shapes/rectangle";
+import Rectangle from "./objects/shapes/rectangle";
 import utils from "./utils/utils";
 import AddEntityEvent from "./events/add-entity-event";
 import TextObject from "./objects/shapes/text-object";
@@ -8,7 +8,6 @@ import RemoveEntityEvent from "./events/remove-entity-event";
 import MouseMoveEvent from "./events/mouse-move-event";
 import MouseClickEvent from "./events/mouse-click-event";
 import { MouseButton } from "./enums/mouse-button";
-import Circle from "./objects/shapes/circle";
 import { ICoordinates } from "./services/canvas-service";
 import HoverIndicator from "./objects/entities/hover-indicator";
 
@@ -26,7 +25,7 @@ export default class Menu implements IGameObject {
     _hasBounced: boolean;
     _bounceTime: number;
     _closingTime: number;
-    _background: Rectangle;
+    _border: Rectangle;
     _button: Rectangle;
     _speed: number;
     _hoverIndicatorId: string;
@@ -47,13 +46,13 @@ export default class Menu implements IGameObject {
         this.x = 0;
         this.y = 0;
 
-        const [ background, innerBackground ] = this._createBackground();
-        this._background = background;
+        const [ border, background ] = this._createBackground();
+        this._border = border;
         this._button = this._createButton();
 
         this.objects = [
+            border,
             background,
-            innerBackground,
             this._button,
             this._createText(),
         ];
@@ -81,7 +80,7 @@ export default class Menu implements IGameObject {
             return object;
         })
 
-        if (this._background.y + this._background.height < 0) {
+        if (this._border.y + this._border.height < 0) {
             this._close();
         }
     }
@@ -101,13 +100,13 @@ export default class Menu implements IGameObject {
             this._events.publish(new RemoveEntityEvent(this._hoverIndicatorId));        
     }
 
+    _onMouseClick = (event: MouseClickEvent) =>
+        this._isButtonHovered && event.button === MouseButton.Left && this._startClosing();
+
     _createIndicator({ x, y }: ICoordinates) {
         const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y, 10);
         this._events.publish(new AddEntityEvent(indicator));
     }
-
-    _onMouseClick = (event: MouseClickEvent) =>
-        this._isButtonHovered && event.button === MouseButton.Left && this._startClosing();
 
     _startClosing() { this._isClosing = true; }
     
