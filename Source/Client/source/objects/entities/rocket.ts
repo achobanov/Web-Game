@@ -29,13 +29,13 @@ export default class Rocket extends Entity {
     }
 
     update(dT: number) : void {
-        if (this._hasReachedDestination())
+        if (this._shouldExplode())
             this._explode();
 
         super.update(dT);
     }
 
-    _hasReachedDestination() { return this.x === this._desination.x && this.y === this._desination.y }
+    _shouldExplode() { return this.x === this._desination.x && this.y === this._desination.y }
 
     _explode() {
         const id = utils.uId();

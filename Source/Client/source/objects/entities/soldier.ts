@@ -13,6 +13,7 @@ import Triangle from "../shapes/triangle";
 
 export default class Soldier extends Entity {
     _events: EventsService;
+    _rotationOffset: number;
 
     constructor(
         events: EventsService,
@@ -23,6 +24,7 @@ export default class Soldier extends Entity {
         super(assets, SoldierImagePath, utils.uId(), 100, x, y, 55, 55, 150);
 
         this._events = events;
+        this._rotationOffset = 1.595;
 
         this.effects.push(this._createLaserPointer());
             
@@ -54,7 +56,7 @@ export default class Soldier extends Entity {
     _rotate = (event: MouseMoveEvent) => {
         const dX = event.cursor.x - this.x;
         const dY = event.cursor.y - this.y;
-        this.angle = Math.atan2(dY, dX) + 1.595; // fixes :D
+        this.angle = Math.atan2(dY, dX) + this._rotationOffset;
     }
 
     _shouldChangeFrame = (dT: number) : boolean =>
