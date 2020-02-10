@@ -18,8 +18,8 @@ export default class SetupService {
 
         const id = utils.uId();
         const z = 1;
-        const x = 550;
-        const y = 550;
+        const x = 480;
+        const y = 200;
 
         const soldier = new Soldier(this._events, this._assets, id, z, x, y);
 
