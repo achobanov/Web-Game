@@ -33,6 +33,11 @@ export default class CanvasService {
         this._context.translate(object.x, object.y);
         this._context.rotate(object.angle ?? 0);
 
+        if (object.fill)
+            this._context.fillStyle = object.fill;
+        if (object.stroke)
+            this._context.strokeStyle = object.stroke;
+
         if (utils.isOfType(object, Sprite))
             this._renderSprite(object);
         else if (utils.isOfType(object, Rectangle))
@@ -71,7 +76,11 @@ export default class CanvasService {
 
         if (sprite.effects) {
             for (const effect of sprite.effects) {
-                this._context.fillStyle = effect.fill;
+                if (effect.fill)
+                    this._context.fillStyle = effect.fill;
+                if (effect.stroke) 
+                    this._context.strokeStyle = effect.stroke;
+
                 this._context.beginPath();
                 this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
                 this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
@@ -83,7 +92,6 @@ export default class CanvasService {
     }
 
     _renderTriangle = (triangle: Triangle) => {
-        this._context.fillStyle = triangle.fill;
         this._context.beginPath();
         this._context.moveTo(0, 0);
         this._context.lineTo(triangle.point2.x, triangle.point2.y);
@@ -93,8 +101,6 @@ export default class CanvasService {
     }
 
     _renderCircle = (circle: Circle) => {
-        this._context.fillStyle = circle.fill;
-        this._context.strokeStyle = circle.fill;
         this._context.beginPath();
         this._context.arc(0, 0, circle.radius, circle.startAngle, circle.endAngle);
         this._context.fill();
@@ -102,16 +108,13 @@ export default class CanvasService {
     }
 
     _renderRectangle = (rectangle: Rectangle) => {
-        if (rectangle.fill) {
-            this._context.fillStyle = rectangle.fill;
-            this._context.fillRect(0, 0, rectangle.width, rectangle.height)
-        } else {
+        if (rectangle.fill)
+            this._context.fillRect(0, 0, rectangle.width, rectangle.height);
+        else
             this._context.rect(0, 0, rectangle.width, rectangle.height);
-        }
     }
 
     _renderText = (text: TextObject) => {
-        this._context.fillStyle = text.fill;
         this._context.font = text.font;
         this._context.fillText(text.text, 0, 0);
     }
