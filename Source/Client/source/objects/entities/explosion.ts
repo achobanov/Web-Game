@@ -8,13 +8,7 @@ import utils from "../../utils/utils";
 export default class Explosion extends Entity {
     _events: EventsService;
 
-    constructor(
-        events: EventsService,
-        assets: AssetsService,
-        x: number, 
-        y: number, 
-        angle: number,
-    ) {
+    constructor(events: EventsService, assets: AssetsService, x: number, y: number, angle: number) {
         super(assets, ExplosionPathName, utils.uId(), 80, x, y, 120, 120, 0);
 
         this._events = events;

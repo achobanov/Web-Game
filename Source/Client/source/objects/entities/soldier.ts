@@ -15,12 +15,7 @@ export default class Soldier extends Entity {
     _events: EventsService;
     _rotationOffset: number;
 
-    constructor(
-        events: EventsService,
-        assets: AssetsService,
-        x: number, 
-        y: number
-    ) {
+    constructor(events: EventsService, assets: AssetsService, x: number, y: number) {
         super(assets, SoldierImagePath, utils.uId(), 100, x, y, 55, 55, 150);
 
         this._events = events;
