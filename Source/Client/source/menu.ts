@@ -118,8 +118,8 @@ export default class Menu implements IGameObject {
     }
 
     _createBackground() : Rectangle[] {
-        const background = new Rectangle(utils.uId(), 50, 200, 860, 560, 0, 'darkgray');
-        const innerBackground = new Rectangle(utils.uId(), 60, 210, 840, 540, 0, 'gray');
+        const background = new Rectangle(utils.uId(), 50, 200, 860, 560, 0, '#333638');
+        const innerBackground = new Rectangle(utils.uId(), 60, 210, 840, 540, 0, '#3e4144');
         
         this._events.publish(new AddEntityEvent(background));
         this._events.publish(new AddEntityEvent(innerBackground));
@@ -128,7 +128,7 @@ export default class Menu implements IGameObject {
     }
 
     _createButton() : Rectangle {
-        const button = new Rectangle(utils.uId(), 300, 450, 360, 60, 0, 'green');
+        const button = new Rectangle(utils.uId(), 300, 450, 360, 60, 0, '#8bc558');
         this._events.publish(new AddEntityEvent(button));
 
         return button;
