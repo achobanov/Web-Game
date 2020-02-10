@@ -1,5 +1,5 @@
-import Game from './game/game'
-import launchSettings from './game/settings';
+import Game from './source/game'
+import launchSettings from './source/settings';
 
 const container = document.getElementById('canvas');
 if (!container) {
