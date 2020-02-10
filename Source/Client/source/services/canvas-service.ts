@@ -49,16 +49,12 @@ export default class CanvasService {
         const asset = this._assetsService.get(sprite.imageKey);
         if (!asset) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
 
-        let x = sprite.x;
-        let y = sprite.y;
+        this._context.save();
+        this._context.translate(sprite.x, sprite.y);
+        this._context.rotate(sprite.angle);
 
-        if (sprite.angle) {
-            this._context.save();
-            this._context.translate(sprite.x, sprite.y);
-            this._context.rotate(sprite.angle);
-            x = 0;
-            y = 0;
-        }
+        const xCenterOffset = -sprite.width / 2;
+        const yCenterOffset = -sprite.width / 2;
 
         this._context.drawImage(
             asset.image,
@@ -66,8 +62,8 @@ export default class CanvasService {
             sprite.frame.y,
             sprite.frame.width,
             sprite.frame.height,
-            x,
-            y,
+            xCenterOffset,
+            yCenterOffset,
             sprite.width,
             sprite.height,
         );
@@ -76,9 +72,9 @@ export default class CanvasService {
             for (const effect of sprite.effects) {
                 this._context.fillStyle = effect.fill;
                 this._context.beginPath();
-                this._context.moveTo(x + effect.point1.x, y + effect.point1.y);
-                this._context.lineTo(x + effect.point2.x, y + effect.point2.y);
-                this._context.lineTo(x + effect.point3.x, y + effect.point3.y);
+                this._context.moveTo(xCenterOffset + effect.point1.x, yCenterOffset + effect.point1.y);
+                this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
+                this._context.lineTo(xCenterOffset + effect.point3.x, yCenterOffset + effect.point3.y);
                 this._context.closePath();
                 this._context.fill();
             }
@@ -86,9 +82,7 @@ export default class CanvasService {
 
         this._context.fillStyle = 'black';
 
-        if (sprite.angle) {
-            this._context.restore();
-        }
+        this._context.restore();
     }
 
     clear = () : void =>
