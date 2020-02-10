@@ -1,14 +1,14 @@
-import Entity from "./sprites/entity";
-import EventsService  from "../services/events-service";
-import MouseClickEvent from "../events/mouse-click-event";
+import Entity from "../sprites/entity";
+import EventsService  from "../../services/events-service";
+import MouseClickEvent from "../../events/mouse-click-event";
 import SoldierImagePath from "../../assets/soldier.png";
-import { MouseButton } from "../enums/mouse-button";
-import AssetsService from "../services/assets-service";
-import MouseMoveEvent from "../events/mouse-move-event";
+import { MouseButton } from "../../enums/mouse-button";
+import AssetsService from "../../services/assets-service";
+import MouseMoveEvent from "../../events/mouse-move-event";
 import Rocket from "./rocket";
-import utils from "../utils/utils";
-import { ICoordinates, ITriangle } from "../services/canvas-service";
-import AddEntityEvent from "../events/add-entity-event";
+import utils from "../../utils/utils";
+import { ICoordinates, ITriangle } from "../../services/canvas-service";
+import AddEntityEvent from "../../events/add-entity-event";
 
 export default class Soldier extends Entity {
     _events: EventsService;

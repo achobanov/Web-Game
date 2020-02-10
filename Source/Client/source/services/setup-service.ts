@@ -1,4 +1,4 @@
-import Soldier from "../objects/soldier"
+import Soldier from "../objects/entities/soldier"
 import utils from "../utils/utils";
 import { IEntity } from "../objects/sprites/entity";
 import AssetsService from "./assets-service";

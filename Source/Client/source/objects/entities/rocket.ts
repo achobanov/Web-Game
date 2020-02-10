@@ -1,11 +1,11 @@
 import RocketImagePath from "../../assets/rocket.png";
-import Entity from "./sprites/entity";
-import EventsService from "../services/events-service";
-import AssetsService from "../services/assets-service";
+import Entity from "../sprites/entity";
+import EventsService from "../../services/events-service";
+import AssetsService from "../../services/assets-service";
 import Explosion from "./explosion";
-import utils from "../utils/utils";
-import AddEntityEvent from "../events/add-entity-event";
-import RemoveEntityEvent from "../events/remove-entity-event";
+import utils from "../../utils/utils";
+import AddEntityEvent from "../../events/add-entity-event";
+import RemoveEntityEvent from "../../events/remove-entity-event";
 
 export default class Rocket extends Entity {
     _events: EventsService;
