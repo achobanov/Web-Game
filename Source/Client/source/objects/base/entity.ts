@@ -1,5 +1,5 @@
 import GameObject from "./game-object";
-import { ISprite, IRectangle, ITriangle } from "../../services/canvas-service";
+import { ISprite, IRectangle, IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
 
 export interface IEntity extends ISprite {
@@ -23,7 +23,7 @@ export default class Entity extends GameObject implements IEntity {
     assetKey: string;
     frame: IRectangle;
     angle: number;
-    effects: ITriangle[];
+    effects: IShape[];
     
     constructor(
         assets: AssetsService,

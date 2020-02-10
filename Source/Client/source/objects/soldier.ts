@@ -7,7 +7,7 @@ import AssetsService from "../services/assets-service";
 import MouseMoveEvent from "../events/mouse-move-event";
 import Rocket from "./rocket";
 import utils from "../utils/utils";
-import { ICoordinates } from "../services/canvas-service";
+import { ICoordinates, ITriangle } from "../services/canvas-service";
 import AddEntityEvent from "../events/add-entity-event";
 
 export default class Soldier extends Entity {
@@ -30,10 +30,11 @@ export default class Soldier extends Entity {
 
         this.effects.push({
             fill: '#c96c6c',
-            point1: { x: 13, y: 5 },
+            x: 13, 
+            y: 5,
             point2: { x: 13.7, y: 5 },
             point3: { x: 13.35, y: -505 },
-        });
+        } as ITriangle);
 
         this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);

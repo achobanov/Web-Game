@@ -37,7 +37,7 @@ export interface ISprite extends IRectangle {
     assetKey: string;
     frame: IRectangle;
     angle: number;
-    effects?: ITriangle[];
+    effects?: IShape[];
 }
 
 export default class CanvasService {
