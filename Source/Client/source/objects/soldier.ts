@@ -81,7 +81,7 @@ export default class Soldier extends Entity {
     _rotate = (event: MouseMoveEvent) => {
         const dX = event.cursor.x - this.x;
         const dY = event.cursor.y - this.y;
-        this.angle = Math.atan2(dY, dX) + 1.51; // fixes :D
+        this.angle = Math.atan2(dY, dX) + 1.595; // fixes :D
     }
 
     _shouldChangeFrame = (dT: number) : boolean =>
