@@ -89,7 +89,10 @@ export default class CanvasService {
     }
 
     _renderTriangle = (triangle: Triangle) => {
-        this._context.fillStyle = triangle.fill;
+        if (triangle.fill) {
+            this._context.fillStyle = triangle.fill;
+        }
+        
         this._context.beginPath();
         this._context.moveTo(triangle.x, triangle.y);
         this._context.lineTo(triangle.point2.x, triangle.point2.y);
