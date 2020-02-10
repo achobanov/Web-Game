@@ -1,4 +1,4 @@
-import GameObject from "./game-object";
+import Rectangle from "../shapes/rectangle";
 import { ISprite, IRectangle, IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
 
@@ -7,7 +7,7 @@ export interface IEntity extends ISprite {
     update: (dt : number) => void;
 }
 
-export default class Entity extends GameObject implements IEntity {
+export default class Entity extends Rectangle implements IEntity {
     _assets: AssetsService;
 
     _speed: number;
