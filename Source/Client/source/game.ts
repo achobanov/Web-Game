@@ -8,6 +8,11 @@ import RemoveEntityEvent from "./events/remove-entity-event";
 import CanvasService from "./services/canvas-service";
 import IGameObject from "./objects/game-object";
 import Menu from "./menu";
+import MouseClickEvent from "./events/mouse-click-event";
+import MoveIndicator from "./objects/entities/move-indicator";
+import utils from "./utils/utils";
+import MouseMoveEvent from "./events/mouse-move-event";
+import { MouseButton } from "./enums/mouse-button";
 
 export default class Game {
     _cyclesPerSecond: number;
@@ -34,7 +39,8 @@ export default class Game {
         this._passedSeconds = 0;
 
         this._events.subscribe(AddEntityEvent.Key, this._addEntity);
-        this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity); 
+        this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity);
+        this._events.subscribe(MouseClickEvent.Key, this._indicateRightClick);
     }
 
     async menu() {
@@ -75,5 +81,14 @@ export default class Game {
 
     _removeEntity = ({ id }: RemoveEntityEvent) => {
         this._objects = this._objects.filter(x => x.id !== id);
+    }
+
+    _indicateRightClick = ({ cursor, button }: MouseClickEvent) => {
+        if (button !== MouseButton.Right)
+            return;
+
+        const { x, y } = cursor;
+        const indicator = new MoveIndicator(this._events, utils.uId(), x, y, 1, 'red');
+        this._objects.push(indicator);
     }
 }
