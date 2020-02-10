@@ -1,7 +1,7 @@
 import EventsService from "./services/events-service";
 import Rectangle from "./objects/shapes/rectangle";
 import utils from "./utils/utils";
-import AddEntityEvent from "./events/add-entity-event";
+import AddObjectEvent from "./events/add-object-event";
 import TextObject from "./objects/shapes/text-object";
 import IGameObject from "./objects/game-object";
 import RemoveEntityEvent from "./events/remove-entity-event";
@@ -105,7 +105,7 @@ export default class Menu implements IGameObject {
 
     _createIndicator({ x, y }: ICoordinates) {
         const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y, 10);
-        this._events.publish(new AddEntityEvent(indicator));
+        this._events.publish(new AddObjectEvent(indicator));
     }
 
     _startClosing() { this._isClosing = true; }
@@ -120,22 +120,22 @@ export default class Menu implements IGameObject {
         const background = new Rectangle(utils.uId(), 50, 200, 860, 560, 0, '#333638');
         const innerBackground = new Rectangle(utils.uId(), 60, 210, 840, 540, 0, '#3e4144');
         
-        this._events.publish(new AddEntityEvent(background));
-        this._events.publish(new AddEntityEvent(innerBackground));
+        this._events.publish(new AddObjectEvent(background));
+        this._events.publish(new AddObjectEvent(innerBackground));
         
         return [ background, innerBackground ];
     }
 
     _createButton() : Rectangle {
         const button = new Rectangle(utils.uId(), 300, 450, 360, 60, 0, '#8bc558');
-        this._events.publish(new AddEntityEvent(button));
+        this._events.publish(new AddObjectEvent(button));
 
         return button;
     }
 
     _createText() {
         const text = new TextObject(utils.uId(), 'Start Game', '30px serif', 410, 490, 0, 'white');
-        this._events.publish(new AddEntityEvent(text));
+        this._events.publish(new AddObjectEvent(text));
 
         return text;
     }

@@ -8,7 +8,7 @@ import MouseMoveEvent from "../../events/mouse-move-event";
 import Rocket from "./rocket";
 import utils from "../../utils/utils";
 import { ICoordinates } from "../../services/canvas-service";
-import AddEntityEvent from "../../events/add-entity-event";
+import AddObjectEvent from "../../events/add-object-event";
 import Triangle from "../shapes/triangle";
 
 export default class Soldier extends Entity {
@@ -82,7 +82,7 @@ export default class Soldier extends Entity {
             destinationX, 
             destinationY);
 
-        this._events.publish(new AddEntityEvent(rocket));
+        this._events.publish(new AddObjectEvent(rocket));
     }
 
     _rotate = (event: MouseMoveEvent) => {

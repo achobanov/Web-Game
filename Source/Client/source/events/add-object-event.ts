@@ -1,13 +1,13 @@
 import { IEvent } from "../services/events-service";
 import IGameObject from "../objects/game-object";
 
-export default class AddEntityEvent implements IEvent {
-    static Key = 'add-entity';
+export default class AddObjectEvent implements IEvent {
+    static Key = 'add-object';
     
-    key = AddEntityEvent.Key;
-    entity: IGameObject;
+    key = AddObjectEvent.Key;
+    object: IGameObject;
 
-    constructor(entity: IGameObject) {
-        this.entity = entity;
+    constructor(object: IGameObject) {
+        this.object = object;
     }
 }

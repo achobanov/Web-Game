@@ -4,7 +4,7 @@ import EventsService from "../../services/events-service";
 import AssetsService from "../../services/assets-service";
 import Explosion from "./explosion";
 import utils from "../../utils/utils";
-import AddEntityEvent from "../../events/add-entity-event";
+import AddObjectEvent from "../../events/add-object-event";
 import RemoveEntityEvent from "../../events/remove-entity-event";
 
 export default class Rocket extends Entity {
@@ -61,7 +61,7 @@ export default class Rocket extends Entity {
             this.angle,
             speed);
 
-        this._events.publish(new AddEntityEvent(explosion));
+        this._events.publish(new AddObjectEvent(explosion));
         this._events.publish(new RemoveEntityEvent(this.id));
     }
 }
