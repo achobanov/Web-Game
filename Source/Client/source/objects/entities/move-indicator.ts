@@ -8,8 +8,16 @@ export default class MoveIndicator extends Circle {
     _passedTime: number;
     _frameRate: number;
 
-    constructor(events: EventsService, id: string, x: number, y: number, radius: number, fill: string) {
-        super(id, x, y, radius, fill);
+    constructor(
+        events: EventsService,
+        id: string,
+        x: number,
+        y: number,
+        radius: number,
+        fill?: string,
+        stroke?: string
+    ) {
+        super(id, x, y, radius, fill, stroke);
 
         this._events = events;
         this._activeDuration = 0.5;
