@@ -71,7 +71,7 @@ export default class CanvasService {
 
         if (sprite.effects) {
             for (const effect of sprite.effects) {
-                this._context.fillStyle = effect.fill ?? 'black';
+                this._context.fillStyle = effect.fill;
                 this._context.beginPath();
                 this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
                 this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
@@ -83,10 +83,7 @@ export default class CanvasService {
     }
 
     _renderTriangle = (triangle: Triangle) => {
-        if (triangle.fill) {
-            this._context.fillStyle = triangle.fill;
-        }
-        
+        this._context.fillStyle = triangle.fill;
         this._context.beginPath();
         this._context.moveTo(0, 0);
         this._context.lineTo(triangle.point2.x, triangle.point2.y);
@@ -96,7 +93,12 @@ export default class CanvasService {
     }
 
     _renderCircle = (circle: Circle) => {
+        this._context.fillStyle = circle.fill;
+        this._context.strokeStyle = circle.fill;
+        this._context.beginPath();
         this._context.arc(0, 0, circle.radius, circle.startAngle, circle.endAngle);
+        this._context.fill();
+        this._context.stroke();
     }
 
     _renderRectangle = (rectangle: Rectangle) => {
