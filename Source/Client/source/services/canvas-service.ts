@@ -5,25 +5,37 @@ export interface ICoordinates {
     y: number;
 }
 
-export interface IRenderable extends ICoordinates {
+export interface IRectangle extends IShape {
     width: number;
     height: number;
 }
 
-export interface IShape {
+export interface IFillable {
     fill: string;
 }
 
+export interface IShape extends ICoordinates {}
+
+export interface ICircle extends IShape {
+    radis: number;
+    startAndle: number;
+    endAngle: number;
+    antiClokwise?: boolean;
+}
+
 export interface ITriangle extends IShape {
-    point1: ICoordinates;
     point2: ICoordinates;
     point3: ICoordinates;
 }
 
-export interface ISprite extends IRenderable { 
+export interface IFillableTriangle extends ITriangle, IFillable { }
+
+export interface IFillableCircle extends ICircle, IFillable { }
+
+export interface ISprite extends IRectangle { 
     uid: string;
-    imageKey: string;
-    frame: IRenderable;
+    assetKey: string;
+    frame: IRectangle;
     angle: number;
     effects?: ITriangle[];
 }
@@ -46,8 +58,8 @@ export default class CanvasService {
 
     render = (sprite: ISprite) : void =>
     {
-        const asset = this._assetsService.get(sprite.imageKey);
-        if (!asset) throw new Error(`Image with key "${sprite.imageKey}" is not found.`);
+        const asset = this._assetsService.get(sprite.assetKey);
+        if (!asset) throw new Error(`Image with key "${sprite.assetKey}" is not found.`);
 
         this._context.save();
         this._context.translate(sprite.x, sprite.y);
@@ -72,7 +84,7 @@ export default class CanvasService {
             for (const effect of sprite.effects) {
                 this._context.fillStyle = effect.fill;
                 this._context.beginPath();
-                this._context.moveTo(xCenterOffset + effect.point1.x, yCenterOffset + effect.point1.y);
+                this._context.moveTo(xCenterOffset + effect.x, yCenterOffset + effect.y);
                 this._context.lineTo(xCenterOffset + effect.point2.x, yCenterOffset + effect.point2.y);
                 this._context.lineTo(xCenterOffset + effect.point3.x, yCenterOffset + effect.point3.y);
                 this._context.closePath();

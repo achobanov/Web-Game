@@ -1,5 +1,5 @@
 import GameObject from "./game-object";
-import { ISprite, IRenderable, ITriangle } from "../../services/canvas-service";
+import { ISprite, IRectangle, ITriangle } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
 
 export interface IEntity extends ISprite {
@@ -11,7 +11,7 @@ export default class Entity extends GameObject implements IEntity {
     _assets: AssetsService;
 
     _speed: number;
-    _frames: IRenderable[];
+    _frames: IRectangle[];
     _frameIndex: number;
     _frameRate: number;
     _timeOnFrame: number;
@@ -20,7 +20,8 @@ export default class Entity extends GameObject implements IEntity {
     
     uid: string;
     z: number;
-    frame: IRenderable;
+    assetKey: string;
+    frame: IRectangle;
     angle: number;
     effects: ITriangle[];
     
@@ -35,7 +36,7 @@ export default class Entity extends GameObject implements IEntity {
         height: number,
         speed: number,
     ) {
-        super(x, y, width, height, assetKey);
+        super(x, y, width, height);
         
         this._assets = assets;
 
@@ -51,6 +52,7 @@ export default class Entity extends GameObject implements IEntity {
         this._isMoving = false;
 
         this.uid = uid;
+        this.assetKey = assetKey;
         this.z = z;
         this.frame = this._frames[this._frameIndex];
         this.angle = 0;
