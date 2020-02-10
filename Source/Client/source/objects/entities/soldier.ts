@@ -24,15 +24,8 @@ export default class Soldier extends Entity {
 
         this._events = events;
 
-        this.effects.push(
-            new Triangle(
-                utils.uId(),
-                { x: 13, y: 5 },
-                { x: 13.7, y: 5 },
-                { x: 13.35, y: -505 },
-                this.angle,
-                '#c96c6c'));
-
+        this.effects.push(this._createLaserPointer());
+            
         this._events.subscribe(MouseClickEvent.Key, this._handleMouseClick);
         this._events.subscribe(MouseMoveEvent.Key, this._rotate);
     }
@@ -88,4 +81,14 @@ export default class Soldier extends Entity {
 
     _shouldChangeFrame = (dT: number) : boolean =>
         this._isMoving && super._shouldChangeFrame(dT);
+
+    _createLaserPointer() : Triangle {
+        return new Triangle(
+            utils .uId(),
+            { x: 13, y: 5 },
+            { x: 13.7, y: 5 },
+            { x: 13.35, y: -505 },
+            this.angle,
+            '#c96c6c');
+    }
 }
