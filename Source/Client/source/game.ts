@@ -7,6 +7,9 @@ import AddEntityEvent from "./events/add-entity-event";
 import RemoveEntityEvent from "./events/remove-entity-event";
 import CanvasService from "./services/canvas-service";
 import IGameObject from "./objects/game-object";
+import Rectangle from "./objects/shapes/rectangle";
+import utils from "./utils/utils";
+import Menu from "./menu";
 
 export default class Game {
     _cyclesPerSecond: number;
@@ -36,13 +39,18 @@ export default class Game {
         this._events.subscribe(RemoveEntityEvent.Key, this._removeEntity); 
     }
 
-    start = async () : Promise<void> => {
+    async menu() {
         const setupObject = await this._setup.proofOfConcept();
-        this._objects = this._objects.concat(...setupObject);
+        const menu = new Menu(this._events);
 
+        this._objects = this._objects.concat([ ...setupObject, ...menu.objects ]);
+        
         this._previousFrameTime = Date.now();
-
         this._loop();
+    }
+
+    start = async () : Promise<void> => {
+
     }
 
     _loop = () : void => {

@@ -13,4 +13,4 @@ container.addEventListener('contextmenu', (event) => {
 
 var game = new Game(container, launchSettings);
 
-game.start(); 
+game.menu(); 
