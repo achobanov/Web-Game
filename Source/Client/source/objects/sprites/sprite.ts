@@ -19,7 +19,7 @@ export default class Sprite extends Rectangle implements ISprite {
     constructor(
         assets: AssetsService,
         assetKey: string,
-        uid: string,
+        uid: string,1
         x: number, 
         y: number, 
         width: number,

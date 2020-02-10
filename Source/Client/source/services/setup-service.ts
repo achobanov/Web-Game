@@ -1,6 +1,6 @@
 import Soldier from "../objects/soldier"
 import utils from "../utils/utils";
-import { IEntity } from "../objects/base/entity";
+import { IEntity } from "../objects/sprites/entity";
 import AssetsService from "./assets-service";
 import EventsService from "./events-service";
 

@@ -1,4 +1,4 @@
-import Entity from "./base/entity";
+import Entity from "./sprites/entity";
 import EventsService  from "../services/events-service";
 import MouseClickEvent from "../events/mouse-click-event";
 import SoldierImagePath from "../../assets/soldier.png";

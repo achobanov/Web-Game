@@ -1,5 +1,5 @@
 import RocketImagePath from "../../assets/rocket.png";
-import Entity from "./base/entity";
+import Entity from "./sprites/entity";
 import EventsService from "../services/events-service";
 import AssetsService from "../services/assets-service";
 import Explosion from "./explosion";

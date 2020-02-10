@@ -1,4 +1,4 @@
-import { IEntity } from "../objects/base/entity";
+import { IEntity } from "../objects/sprites/entity";
 
 export interface IEvent {
     key: string,

@@ -3,7 +3,7 @@ import { ILaunchSettings } from "./settings";
 import InputService from "./services/input-service";
 import EventsService from "./services/events-service";
 import CanvasService from "./services/canvas-service";
-import { IEntity } from "./objects/base/entity";
+import { IEntity } from "./objects/sprites/entity";
 import SetupService from "./services/setup-service";
 import AddEntityEvent from "./events/add-entity-event";
 import RemoveEntityEvent from "./events/remove-entity-event";
