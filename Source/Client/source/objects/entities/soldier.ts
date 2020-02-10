@@ -17,12 +17,10 @@ export default class Soldier extends Entity {
     constructor(
         events: EventsService,
         assets: AssetsService,
-        uid: string,
-        z: number,
         x: number, 
         y: number
     ) {
-        super(assets, SoldierImagePath, uid, z, x, y, 55, 55, 150);
+        super(assets, SoldierImagePath, utils.uId(), 100, x, y, 55, 55, 150);
 
         this._events = events;
 
