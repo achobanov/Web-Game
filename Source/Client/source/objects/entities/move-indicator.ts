@@ -1,6 +1,6 @@
 import Circle from "../shapes/circle";
 import EventsService from "../../services/events-service";
-import RemoveEntityEvent from "../../events/remove-entity-event";
+import RemoveEntityEvent from "../../events/remove-object-event";
 
 export default class MoveIndicator extends Circle {
     _events: EventsService;

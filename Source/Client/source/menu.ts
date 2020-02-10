@@ -4,7 +4,7 @@ import utils from "./utils/utils";
 import AddObjectEvent from "./events/add-object-event";
 import TextObject from "./objects/shapes/text-object";
 import IGameObject from "./objects/game-object";
-import RemoveEntityEvent from "./events/remove-entity-event";
+import RemoveEntityEvent from "./events/remove-object-event";
 import MouseMoveEvent from "./events/mouse-move-event";
 import MouseClickEvent from "./events/mouse-click-event";
 import { MouseButton } from "./enums/mouse-button";

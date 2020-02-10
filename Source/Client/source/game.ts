@@ -4,7 +4,7 @@ import InputService from "./services/input-service";
 import EventsService from "./services/events-service";
 import SetupService from "./services/setup-service";
 import AddObjectEvent from "./events/add-object-event";
-import RemoveEntityEvent from "./events/remove-entity-event";
+import RemoveEntityEvent from "./events/remove-object-event";
 import CanvasService from "./services/canvas-service";
 import IGameObject from "./objects/game-object";
 import Menu from "./menu";

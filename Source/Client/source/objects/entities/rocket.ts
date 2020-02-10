@@ -5,7 +5,7 @@ import AssetsService from "../../services/assets-service";
 import Explosion from "./explosion";
 import utils from "../../utils/utils";
 import AddObjectEvent from "../../events/add-object-event";
-import RemoveEntityEvent from "../../events/remove-entity-event";
+import RemoveEntityEvent from "../../events/remove-object-event";
 
 export default class Rocket extends Entity {
     _events: EventsService;

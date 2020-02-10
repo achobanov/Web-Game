@@ -1,7 +1,7 @@
 import Circle from "../shapes/circle";
 import EventsService from "../../services/events-service";
 import MouseMoveEvent from "../../events/mouse-move-event";
-import RemoveEntityEvent from "../../events/remove-entity-event";
+import RemoveEntityEvent from "../../events/remove-object-event";
 import MouseClickEvent from "../../events/mouse-click-event";
 import { MouseButton } from "../../enums/mouse-button";
 
