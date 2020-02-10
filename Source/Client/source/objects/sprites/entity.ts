@@ -1,6 +1,6 @@
-import { ISprite, IShape } from "../../services/canvas-service";
+import { IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
-import Sprite from "./sprite";
+import Sprite, { ISprite } from "./sprite";
 
 export interface IEntity extends ISprite {
     z: number,
