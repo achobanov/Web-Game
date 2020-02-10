@@ -5,6 +5,7 @@ import Rectangle from "../objects/shapes/rectangle";
 import Triangle from "../objects/shapes/triangle";
 import Circle from "../objects/shapes/circle";
 import IGameObject from "../objects/game-object";
+import TextObject from "../objects/shapes/text-object";
 
 export interface ICoordinates {
     x: number;
@@ -27,8 +28,7 @@ export default class CanvasService {
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    render = (object: IGameObject) : void =>
-    {
+    render = (object: IGameObject) : void => {
         this._context.save();
         this._context.translate(object.x, object.y);
         this._context.rotate(object.angle ?? 0);
@@ -41,6 +41,8 @@ export default class CanvasService {
             this._renderTriangle(object);
         else if (utils.isOfType(object, Circle))
             this._renderCircle(object);
+        else if (utils.isOfType(object, TextObject))
+            this._renderText(object);
         else
             throw new Error('Unsupported shape.');
 
@@ -104,6 +106,12 @@ export default class CanvasService {
         } else {
             this._context.rect(0, 0, rectangle.width, rectangle.height);
         }
+    }
+
+    _renderText = (text: TextObject) => {
+        this._context.fillStyle = text.fill;
+        this._context.font = text.font;
+        this._context.fillText(text.text, 0, 0);
     }
 
     clear = () : void =>
