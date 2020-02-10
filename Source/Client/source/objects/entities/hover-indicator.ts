@@ -8,8 +8,8 @@ import { MouseButton } from "../../enums/mouse-button";
 export default class HoverIndicator extends Circle {
     _events: EventsService;
 
-    constructor(events: EventsService, id: string, x: number, y: number, radius: number) {
-        super(id, x, y, radius, '', 'white');
+    constructor(events: EventsService, id: string, x: number, y: number) {
+        super(id, x, y, 10, '', 'white');
 
         this._events = events;
         this.alpha = 0.5;

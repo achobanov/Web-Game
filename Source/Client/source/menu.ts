@@ -28,6 +28,7 @@ export default class Menu implements IGameObject {
     _border: Rectangle;
     _button: Rectangle;
     _speed: number;
+    _dSpeed: number;
     _hoverIndicatorId: string;
     _startGame: () => void;
     
@@ -37,6 +38,7 @@ export default class Menu implements IGameObject {
         this._hasBounced = false;
         this._bounceTime = 0.17;
         this._speed = 100;
+        this._dSpeed = 150;
         this._closingTime = 0;
         this._startGame = startGame;
         this._isButtonHovered = false;
@@ -70,7 +72,7 @@ export default class Menu implements IGameObject {
             this._hasBounced = true;
         }
 
-        const distance = (this._speed += 150) * dT;
+        const distance = (this._speed += this._dSpeed) * dT;
 
         this.objects.map(object => {
             object.y = this._hasBounced
@@ -104,7 +106,7 @@ export default class Menu implements IGameObject {
         this._isButtonHovered && event.button === MouseButton.Left && this._startClosing();
 
     _createIndicator({ x, y }: ICoordinates) {
-        const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y, 10);
+        const indicator = new HoverIndicator(this._events, this._hoverIndicatorId, x, y);
         this._events.publish(new AddObjectEvent(indicator));
     }
 
