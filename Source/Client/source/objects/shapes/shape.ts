@@ -1,11 +1,16 @@
-import { IShape } from "../../services/canvas-service";
+import IGameObject from "../game-object";
+import { ICoordinates } from "../../services/canvas-service";
 
-export default class Shape implements IShape {
+export interface IShape extends ICoordinates, IGameObject {}
+
+export default class Shape implements IGameObject {
+    id: string;
     x: number;    
     y: number;
     fill?: string;
-
-    constructor(x: number, y: number, fill?: string) {
+    
+    constructor(id: string, x: number, y: number, fill?: string) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.fill = fill;

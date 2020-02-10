@@ -62,6 +62,6 @@ export default class Rocket extends Entity {
             speed);
 
         this._events.publish(new AddEntityEvent(explosion));
-        this._events.publish(new RemoveEntityEvent(this.uid));
+        this._events.publish(new RemoveEntityEvent(this.id));
     }
 }

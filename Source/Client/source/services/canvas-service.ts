@@ -4,29 +4,11 @@ import Sprite, { ISprite } from "../objects/sprites/sprite";
 import Rectangle from "../objects/shapes/rectangle";
 import Triangle from "../objects/shapes/triangle";
 import Circle from "../objects/shapes/circle";
+import IGameObject from "../objects/game-object";
 
 export interface ICoordinates {
     x: number;
-    y: number;
-}
-
-export interface IRectangle extends IShape {
-    width: number;
-    height: number;
-}
-
-export interface IShape extends ICoordinates {}
-
-export interface ICircle extends IShape {
-    radius: number;
-    startAngle: number;
-    endAngle: number;
-    antiClokwise?: boolean;
-}
-
-export interface ITriangle extends IShape {
-    point2: ICoordinates;
-    point3: ICoordinates;
+    y: number
 }
 
 export default class CanvasService {
@@ -45,16 +27,16 @@ export default class CanvasService {
         this._clear = () => this._context.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    render = (shape: IShape) : void =>
+    render = (object: IGameObject) : void =>
     {
-        if (utils.isOfType(shape, Sprite))
-            this._renderSprite(shape);
-        else if (utils.isOfType(shape, Rectangle))
-            this._renderRectangle(shape);
-        else if (utils.isOfType(shape, Triangle))
-            this._renderTriangle(shape);
-        else if (utils.isOfType(shape, Circle))
-            this._renderCircle(shape);
+        if (utils.isOfType(object, Sprite))
+            this._renderSprite(object);
+        else if (utils.isOfType(object, Rectangle))
+            this._renderRectangle(object);
+        else if (utils.isOfType(object, Triangle))
+            this._renderTriangle(object);
+        else if (utils.isOfType(object, Circle))
+            this._renderCircle(object);
         else
             throw new Error('Unsupported shape.');
 

@@ -1,5 +1,5 @@
-import { IRectangle } from "./canvas-service";
 import { IAssetInfo } from "../settings";
+import { IRectangle } from "../objects/shapes/rectangle";
 
 export interface IAsset extends IAssetInfo {
     frames: IRectangle[];
@@ -60,6 +60,7 @@ export default class AssetsService {
         let frameY = 0;
         for (let i = 0; i < framesCount; i++) {
             const frame : IRectangle = {
+                id: '',
                 x: frameX,
                 y: frameY,
                 width: frameWidth,

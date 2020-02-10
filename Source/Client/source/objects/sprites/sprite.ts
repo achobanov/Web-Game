@@ -1,8 +1,8 @@
-import { IRectangle, IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
+import { IRectangle } from "../shapes/rectangle";
+import { IShape } from "../shapes/shape";
 
 export interface ISprite extends IRectangle { 
-    uid: string;
     assetKey: string;
     frame: IRectangle;
     angle: number;
@@ -21,7 +21,7 @@ export default class Sprite implements ISprite {
     y: number;
     width: number;
     height: number;
-    uid: string;    
+    id: string;    
     assetKey: string;
     frame: IRectangle;
     angle: number;
@@ -30,7 +30,7 @@ export default class Sprite implements ISprite {
     constructor(
         assets: AssetsService,
         assetKey: string,
-        uid: string,
+        id: string,
         x: number, 
         y: number, 
         width: number,
@@ -52,7 +52,7 @@ export default class Sprite implements ISprite {
         this.width = width;
         this.height = height;
         this.assetKey = assetKey;
-        this.uid = uid;
+        this.id = id;
         this.angle = angle;
     }
 

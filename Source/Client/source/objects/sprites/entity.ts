@@ -1,6 +1,6 @@
-import { IShape } from "../../services/canvas-service";
 import AssetsService from "../../services/assets-service";
 import Sprite, { ISprite } from "./sprite";
+import { IShape } from "../shapes/shape";
 
 export interface IEntity extends ISprite {
     z: number,
@@ -18,7 +18,7 @@ export default class Entity extends Sprite implements IEntity {
     constructor(
         assets: AssetsService,
         assetKey: string,
-        uid: string,
+        id: string,
         z: number,
         x: number, 
         y: number, 
@@ -26,13 +26,12 @@ export default class Entity extends Sprite implements IEntity {
         height: number,
         speed: number,
     ) {
-        super(assets, assetKey, uid, x, y, width, height, 0);
+        super(assets, assetKey, id, x, y, width, height, 0);
 
         this._speed = speed;
         this._desination = { x ,y };
         this._isMoving = false;
 
-        this.uid = uid;
         this.z = z;
         this.angle = 0;
         this.effects = [];

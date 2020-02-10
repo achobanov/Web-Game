@@ -35,6 +35,6 @@ export default class Explosion extends Entity {
     _hasExploded() { return this._frameIndex === this._frames.length - 1 }
 
     _end() {
-        this._events.publish(new RemoveEntityEvent(this.uid));
+        this._events.publish(new RemoveEntityEvent(this.id));
     }
 }
