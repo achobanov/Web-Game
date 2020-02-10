@@ -1,4 +1,5 @@
 import Shape, { IShape } from "./shape";
+import { ICoordinates } from "../../services/canvas-service";
 
 export interface ICircle extends IShape {
     radius: number;
@@ -16,15 +17,23 @@ export default class Circle extends Shape implements ICircle {
         id: string, 
         x: number, 
         y: number, 
-        radius: number, 
-        startAngle: number, 
-        endAngle: number, 
-        fill?: string
+        radius: number,
+        fill?: string,
+        stroke?: string,
+        alpha?: number,
     ) {
-        super(id, x, y, 0, fill);
+        super(id, x, y, 0, fill, stroke, alpha);
 
         this.radius = radius;
-        this.startAngle = startAngle;
-        this.endAngle = endAngle;
+        this.startAngle = 0;
+        this.endAngle = 2 * Math.PI;
+
+        this._offsetCenter(this.x, this.y);
+    }
+
+    _offsetCenter(x: number, y: number) {
+        const centerOffset = this.radius * 0.1;
+        this.x = x - centerOffset;
+        this.y = y - centerOffset;
     }
 }

@@ -1,7 +1,7 @@
 import AssetsService from "../../services/assets-service";
 import Sprite, { ISprite } from "./sprite";
 import { IShape } from "../shapes/shape";
-import LaserPointer from "../shapes/laser-pointer";
+import Triangle from "../shapes/triangle";
 
 export interface IEntity extends ISprite {
     z: number,
@@ -14,7 +14,7 @@ export default class Entity extends Sprite implements IEntity {
     _isMoving: boolean;
     
     z: number;
-    effects: IShape[];
+    effects: Triangle[];
     
     constructor(
         assets: AssetsService,

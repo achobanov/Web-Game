@@ -66,7 +66,7 @@ export default class Soldier extends Entity {
         const z = 0;
         const width = 20;
         const height = 45;
-        const speed = 450;
+        const speed = 550;
 
         const rocket = new Rocket(
             this._events, 
