@@ -5,6 +5,9 @@ import AddEntityEvent from "./events/add-entity-event";
 import TextObject from "./objects/shapes/text-object";
 import IGameObject from "./objects/game-object";
 import RemoveEntityEvent from "./events/remove-entity-event";
+import MouseMoveEvent from "./events/mouse-move-event";
+import MouseClickEvent from "./events/mouse-click-event";
+import { MouseButton } from "./enums/mouse-button";
 
 export default class Menu implements IGameObject {
     id: string;
@@ -16,19 +19,24 @@ export default class Menu implements IGameObject {
     
     _events: EventsService;
     _isClosing: boolean;
+    _isButtonHovered: boolean;
     _hasBounced: boolean;
     _bounceTime: number;
     _closingTime: number;
-    _background: IRectangle;
+    _background: Rectangle;
+    _button: Rectangle;
+    _speed: number;
     _startGame: () => void;
     
     constructor(events: EventsService, startGame: () => void) {
         this._events = events;
         this._isClosing = false;
         this._hasBounced = false;
-        this._bounceTime = 1;
+        this._bounceTime = 0.17;
+        this._speed = 100;
         this._closingTime = 0;
         this._startGame = startGame;
+        this._isButtonHovered = false;
 
         this.id = utils.uId();
         this.x = 0;
@@ -36,38 +44,57 @@ export default class Menu implements IGameObject {
 
         const [ background, innerBackground ] = this._createBackground();
         this._background = background;
+        this._button = this._createButton();
 
         this.objects = [
             background,
             innerBackground,
-            this._createButton(),
+            this._button,
             this._createText(),
         ];
+
+        this._events.subscribe(MouseMoveEvent.Key, this._onMouseMove);
+        this._events.subscribe(MouseClickEvent.Key, this._onMouseClick);
     }
 
     update(dT: number) {
+        if (!this._isClosing)
+            return;
+
         this._closingTime += dT;
-        if (this._closingTime === this._bounceTime) {
+        if (this._closingTime > this._bounceTime) {
             this._hasBounced = true;
         }
 
-        const distance = 300 * dT;
-        if (this._isClosing) {
-            this.objects.map(object => {
-                object.y = this._hasBounced
-                    ? object.y -= distance
-                    : object.y += distance;
+        const distance = (this._speed += 150) * dT;
 
-                return object;
-            })
-        }
+        this.objects.map(object => {
+            object.y = this._hasBounced
+                ? object.y -= distance
+                : object.y += distance;
+
+            return object;
+        })
 
         if (this._background.y + this._background.height < 0) {
             this._close();
         }
     }
 
+    _onMouseMove = (event: MouseMoveEvent) =>
+        this._isButtonHovered = 
+            this._button.x < event.cursor.x
+         && this._button.x + this._button.width > event.cursor.x
+         && this._button.y < event.cursor.y
+         && this._button.y + this._button.width > event.cursor.y;
+
+    _onMouseClick = (event: MouseClickEvent) =>
+        this._isButtonHovered && event.button === MouseButton.Left && this._startClosing();
+
+    _startClosing() { this._isClosing = true; }
+    
     _close() {
+        this._events.publish(new RemoveEntityEvent(this.id));
         this.objects.forEach(object => this._events.publish(new RemoveEntityEvent(object.id)));
         this._startGame();
     }
@@ -82,7 +109,7 @@ export default class Menu implements IGameObject {
         return [ background, innerBackground ];
     }
 
-    _createButton() {
+    _createButton() : Rectangle {
         const button = new Rectangle(utils.uId(), 300, 450, 360, 60, 0, 'green');
         this._events.publish(new AddEntityEvent(button));
 
