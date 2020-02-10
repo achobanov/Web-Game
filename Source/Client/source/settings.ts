@@ -11,6 +11,7 @@ export interface IAssetInfo {
 export interface ILaunchSettings {
     assets: IAssetInfo[];
     setupKey: string,
+    defaultFill: string,
 }
 
 var launchSettings : ILaunchSettings = {
@@ -32,6 +33,7 @@ var launchSettings : ILaunchSettings = {
         },
     ],
     setupKey: 'proofOfConcept',
+    defaultFill: '#252729',
 };
 
 export default launchSettings; 
