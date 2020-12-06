@@ -4,10 +4,10 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, './source/webroot')));
+app.use(express.static(path.join(__dirname, '../webroot')));
 
 app.get('/', (request, response) => {
-  fs.readFile('./source/index.html', function(error, html) {
+  fs.readFile('./webroot/index.html', function(error, html) {
     if (error) throw error
   
     response.statusCode = 200;
