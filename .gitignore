@@ -108,4 +108,6 @@ dist
 # ------------------------------------------------------------------------------
 
 # Client bundle and assets
-Server/source/webroot
+Client/build
+Server/webroot
+!Server/webroot/index.html
