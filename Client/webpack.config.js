@@ -5,7 +5,7 @@ module.exports = {
   mode: 'production',
   output: {
     filename: 'vendor.js',
-    path: path.resolve(__dirname, '../Server/source/webroot/scripts'),
+    path: path.resolve(__dirname, './build/scripts'),
   },
   devtool: 'source-map',
   resolve: {
