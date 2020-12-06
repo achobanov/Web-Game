@@ -5,6 +5,7 @@
   "description": "Web-Game's client package with basic bundling",
   "main": "app.js",
   "scripts": {
+    "build-clean": "npm i && tsc && webpack && rm -rf node_modules",
     "build": "tsc && webpack",
     "types": "tsc",
     "watch": "webpack --watch"
