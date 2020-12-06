@@ -19,6 +19,7 @@ Start the server
 ```
 cd ../Server
 npm install
+cp ../Client/build/* ./webroot/
 npm start
 ```
 ## Client tools
